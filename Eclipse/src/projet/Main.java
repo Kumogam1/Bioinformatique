@@ -1,8 +1,10 @@
 package projet;
 
 import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileOutputStream;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.ObjectOutputStream;
@@ -68,21 +70,27 @@ public class Main
             		f.addNode( hierarchy );
              		if (oldHierarchy != null )
              		{
-             			ArrayList<String> tab = new ArrayList<String>();
+             			String str = "";
              			
              			for(int i = 0; i < g.getGenome().size(); i++)
-             				tab.add(g.getGenome().get(i));
+             				str += g.getGenome().get(i);
 
             			String fileSerialize = "./Results/"+String.join("/", oldHierarchy) +".txt";
+            			
             			File tmp = new File(fileSerialize);
             			tmp.getParentFile().setWritable(true);
             			tmp.getParentFile().mkdirs();
-						FileOutputStream fos = new FileOutputStream(tmp);
+            			
+            			BufferedWriter bufres = new BufferedWriter(new FileWriter(fileSerialize));
+            			bufres.write(str);
+            			bufres.close();
+						
+            			/*FileOutputStream fos = new FileOutputStream(tmp);
 			            ObjectOutputStream oos = new ObjectOutputStream(fos);
 			            oos.writeObject(tab);
 			            oos.close();
 
-			            fos.close();
+			            fos.close();*/
             		}
             		oldHierarchy = hierarchy;
             		f.log("Nouveau gene : " + hierarchy[5]);
