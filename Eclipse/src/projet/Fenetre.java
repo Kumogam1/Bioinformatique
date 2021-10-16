@@ -11,18 +11,20 @@ import javax.swing.WindowConstants;
 import javax.swing.border.EmptyBorder;
 import javax.swing.text.BadLocationException;
 import javax.swing.tree.DefaultMutableTreeNode;
+import javax.swing.tree.DefaultTreeCellRenderer;
 import javax.swing.BorderFactory;
 import javax.swing.Box;
 import javax.swing.BoxLayout;
+import javax.swing.Icon;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.Font;
-import java.awt.Frame;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 
@@ -70,6 +72,42 @@ public class Fenetre extends JFrame
 		
 		// TREE
 		tree = new JTree(root);
+		tree.setCellRenderer(new DefaultTreeCellRenderer() {	
+			/**
+			 * 
+			 */
+			private static final long serialVersionUID = -7857980626261996475L;
+			
+			private Icon loadIcon =  new ImageIcon(new ImageIcon(getClass().getResource("/img/emoji_orange.png")).getImage().getScaledInstance(10, 10,  java.awt.Image.SCALE_SMOOTH));
+	        private Icon badIcon =  new ImageIcon(new ImageIcon(getClass().getResource("/img/emoji_red.png")).getImage().getScaledInstance(10, 10,  java.awt.Image.SCALE_SMOOTH));
+	        private Icon goodIcon =  new ImageIcon(new ImageIcon(getClass().getResource("/img/emoji_green.png")).getImage().getScaledInstance(10, 10,  java.awt.Image.SCALE_SMOOTH));
+	       	        
+	        @Override
+	        public Component getTreeCellRendererComponent(JTree tree,
+	                Object value, boolean selected, boolean expanded,
+	                boolean isLeaf, int row, boolean focused) {
+	            Component c = super.getTreeCellRendererComponent(tree, value,
+	                    selected, expanded, isLeaf, row, focused);
+	            if (isLeaf ) {
+	            	if (value instanceof DefaultMutableTreeNode) {
+	            		Object userObj = ((DefaultMutableTreeNode) value).getUserObject();
+	            		if(userObj instanceof Leaf) {
+		            		if( (int)((Leaf)userObj).attribute == 0) {
+		            			setIcon(loadIcon);
+		            		}
+		            		else if( (int)((Leaf)userObj).attribute == -1) {
+		            			setIcon(badIcon);
+		            		}
+		            		else if( (int)((Leaf)userObj).attribute == 1) {
+		            			setIcon(goodIcon);
+		            		}
+	            		}
+	            	}
+	            }
+	            return c;
+	        }
+	    });
+		
 	    JScrollPane treeScroll = new JScrollPane(tree);
 	    treeScroll.setPreferredSize(new Dimension(300, 400));
 		treeScroll.getViewport().getView().setBackground(Color.WHITE);
@@ -213,7 +251,7 @@ public class Fenetre extends JFrame
 				}
 				
 				DefaultMutableTreeNode addedTreeNode = new DefaultMutableTreeNode(gen[5]);
-				addedTreeNode.setUserObject(gen[5]);
+				addedTreeNode.setUserObject(new Leaf(gen[5], 0));
 
 				model.insertNodeInto(addedTreeNode, tmp_root, 0);
 				model.reload(root);
@@ -264,5 +302,53 @@ public class Fenetre extends JFrame
 		this.dlProgressBar.setVisible(true);
 	}
 	
+	public void notLoaded(String racines, String nom) {
+		java.awt.EventQueue.invokeLater(new Runnable() {
+		    @Override
+		        public void run() {
+				DefaultMutableTreeNode root = (DefaultMutableTreeNode) tree.getModel().getRoot();
+				ArrayList<String> it = new ArrayList<String>();
+				it.addAll(Arrays.asList(racines.split(";")));
+				it.add(nom);
+				for(String nodeName : it ) {
+					for(TreeNode t : Collections.list(root.children())) {
+						if(t.toString().equals(nodeName)) {
+							root = (DefaultMutableTreeNode)t;
+							break;
+						}
+					}
+				}
+				Leaf userObj = (Leaf) root.getUserObject();
+				userObj.attribute=-1;
+				root.setUserObject(userObj);
+				mainPanel.setVisible(false); 
+				mainPanel.setVisible(true);
+		    }
+		});	
+	}
+	
+	public void loaded(String[] gen) {
+
+		java.awt.EventQueue.invokeLater(new Runnable() {
+		    @Override
+		        public void run() {
+					DefaultMutableTreeNode root = (DefaultMutableTreeNode) tree.getModel().getRoot();
+					for(String nodeName : gen ) {
+						for(TreeNode t : Collections.list(root.children())) {
+							if(t.toString().equals(nodeName)) {
+								root = (DefaultMutableTreeNode)t;
+								break;
+							}
+						}
+					}
+					Leaf userObj = (Leaf) root.getUserObject();
+					userObj.attribute=1;
+					root.setUserObject(userObj);
+					mainPanel.setVisible(false); 
+					mainPanel.setVisible(true);
+
+		    	}
+			});		
+	}
 }
 
