@@ -1,4 +1,5 @@
 package projet;
+import java.awt.event.*;
 import javax.swing.*;
 import java.awt.*;
 import javax.swing.JFrame;
@@ -40,6 +41,11 @@ public class Fenetre extends JFrame
 	private JTextArea textLog = new JTextArea(65, 30);
 	private JProgressBar dlProgressBar = new JProgressBar();
 	private JTree tree;
+	
+     
+    public   Boolean stopp  = false;
+    public   Boolean stopp1 = true;
+    public   Boolean startt  = false;
 
 	private DefaultMutableTreeNode root  = new DefaultMutableTreeNode("root");
   
@@ -60,7 +66,7 @@ public class Fenetre extends JFrame
 		textLog.setForeground(Color.WHITE);
 		textLog.setFont(new Font("Arial", Font.CENTER_BASELINE, 12));
 		textLog.setEditable(false);
-		this.log("Bienvenue. Cliquez sur le botton start pour lancer le parsing . \n");
+		
 		
 		/* ADDING ELEMENTS TO THE WINDOW */
 		
@@ -157,17 +163,11 @@ public class Fenetre extends JFrame
 		cst.gridy = 2;
 		middlePanel.add(stop,cst);
 	   
-	    
-	    
-	  
-	    
-	    
-	    
+	 
 	    mainPanel.add(middlePanel);
 	    /* BOTTOM PANEL */
 	    
 	    
-	   
 	    JPanel bottomPanel = new JPanel();
 	    bottomPanel.setLayout(new BorderLayout());
 	    
@@ -191,7 +191,29 @@ public class Fenetre extends JFrame
 	    
 	    this.setContentPane(mainPanel);
 	    this.setVisible(true);
-
+	    
+	    /* ACTION START STOP  */
+	    // START
+	    start.addActionListener(new ActionListener()
+	    {
+	      public void actionPerformed(ActionEvent e)
+	      {
+	    	  log("Start Parsing... \n");
+	    	  startt = true;
+	    	  stopp = false;
+	    	   
+	      }
+	    });
+	    // STOP
+	    stop.addActionListener(new ActionListener()
+	    {
+	      public void actionPerformed(ActionEvent e)
+	      {
+	    	  log("Stop Parsing. \n");
+	    	  stopp = true;
+	    	   
+	      }
+	    });
 	    
 	    /*
 		// Panel mode vertical
