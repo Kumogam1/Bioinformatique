@@ -91,7 +91,7 @@ public class Main
                  			
                  			String[] oldH2 = Arrays.copyOfRange(oldHierarchy, 0, oldHierarchy.length-1);
                  			             			
-                			String fileSerialize = "./Results/"+String.join("/", oldH2) + "/" + oldHierarchy[oldHierarchy.length-1].replace(" ", "_") + "_" + nc;
+                			String fileSerialize = "./Results/"+String.join("/", oldH2) + "/" + oldHierarchy[oldHierarchy.length-1].replace(" ", "_").replace(":", "") + "_" + nc;
                 			
                 			if(num == 0)
                 				fileSerialize += ".txt";
