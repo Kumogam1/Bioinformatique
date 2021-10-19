@@ -23,7 +23,7 @@ public class Main
 		Fenetre f = new Fenetre();
 		
 		f.log("BIENVENU \n ");
-		f.log("Attendez un moment \n ");
+		f.log("Attendez un moment  ... \n ");
 		String[] ids = new String[] {"Viruses","Eukaryota", "Archaea", "Bacteria", "Mito_metazoa", "Phages", "Plasmids", "Samples", "Viroids", "dsDNA_Viruses"};
 
         ArrayList<String> d = new ArrayList<String>();
