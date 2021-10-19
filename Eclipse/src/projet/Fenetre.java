@@ -1,5 +1,6 @@
 package projet;
-
+import javax.swing.*;
+import java.awt.*;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -59,7 +60,7 @@ public class Fenetre extends JFrame
 		textLog.setForeground(Color.WHITE);
 		textLog.setFont(new Font("Arial", Font.CENTER_BASELINE, 12));
 		textLog.setEditable(false);
-		this.log("Bienvenue. Si vous n'avez pas encore de données téléchargées, \n merci de patienter le téléchargement va bientôt démarrer. \n");
+		this.log("Bienvenue. Cliquez sur le botton start pour lancer le parsing . \n");
 		
 		/* ADDING ELEMENTS TO THE WINDOW */
 		
@@ -128,20 +129,51 @@ public class Fenetre extends JFrame
 	    
 	    dlProgressBar.setPreferredSize(new Dimension(500, 20));
 	    dlProgressBar.setStringPainted(true);
+	     
+	    JPanel middlePanel = new JPanel(new GridBagLayout());
+	    GridBagConstraints cst = new GridBagConstraints();
 	    
-	    JPanel middlePanel = new JPanel();
+	    JButton start = new JButton("Start"); 
+	    start.setSize(10, 10);  
+	    JButton stop  = new JButton("Stop");
+	    stop.setSize(10, 10); 
+	    
+	 
+        cst.fill = GridBagConstraints.HORIZONTAL;
+        cst.gridx = 0;
+        cst.gridy = 0;
+        middlePanel.add(dlProgressBar,cst);
 	    middlePanel.setBackground(Color.BLACK);
-	    middlePanel.add(dlProgressBar);
-	    mainPanel.add(middlePanel);
+	   
+	    cst.fill = GridBagConstraints.HORIZONTAL;
+		cst.gridwidth = 1;
+		cst.gridx = 0;
+		cst.gridy = 1;
+		middlePanel.add(start,cst);
 	    
+		cst.fill = GridBagConstraints.HORIZONTAL;
+		cst.gridwidth = 1;
+		cst.gridx = 0;
+		cst.gridy = 2;
+		middlePanel.add(stop,cst);
+	   
+	    
+	    
+	  
+	    
+	    
+	    
+	    mainPanel.add(middlePanel);
 	    /* BOTTOM PANEL */
 	    
+	    
+	   
 	    JPanel bottomPanel = new JPanel();
 	    bottomPanel.setLayout(new BorderLayout());
 	    
 	    bottomPanel.setBackground(Color.BLACK);
 	    button.setBackground(Color.DARK_GRAY);
-	    button.setForeground(Color.WHITE);
+	    button.setForeground(Color.red);
 	    button.setOpaque(true);
 	    
 	    JLabel copyright = new JLabel("BELQASMI Amine, EGNER Anaïs, GU Edouard, MAYER Thomas, MOISY Arthur");
@@ -151,7 +183,7 @@ public class Fenetre extends JFrame
 	    copyright.setBorder(new EmptyBorder(10,0,10,10)); //top,left,bottom,right
 
 	    bottomPanel.add(copyright, BorderLayout.SOUTH);
-	    
+	
 	    mainPanel.add(bottomPanel);
 	    
 	    
