@@ -174,9 +174,9 @@ public class HtmlGenome
      * @return
      * @throws IOException
      */
-    public static ArrayList<String> getSeq(String geneID, ArrayList<String> genome, int genSize, int genSizeString) throws IOException
+    public static ArrayList<List<String>> getSeq(String geneID, ArrayList<String> genome, int genSize, int genSizeString) throws IOException
     {
-    	ArrayList<String> res = new ArrayList<String>();
+    	ArrayList<List<String>> res = new ArrayList<List<String>>();
         
         URL url = new URL("https://eutils.ncbi.nlm.nih.gov/entrez/eutils/efetch.fcgi?db=nuccore&id=" + geneID + "&rettype=gbwithparts&retmode=text");
       
@@ -187,6 +187,11 @@ public class HtmlGenome
         Pattern pJoin = Pattern.compile("CDS\\s+join\\(((\\d+\\.\\.\\d+,)+\\d+\\.\\.\\d+)\\)");
         Pattern pCompJoin = Pattern.compile("CDS\\s+complement\\(join\\(((\\d+\\.\\.\\d+,)+\\d+\\.\\.\\d+)\\)\\)");
         
+        String[] ids;
+        List<String> r;
+        String b;
+        
+        
         BufferedReader reader = new BufferedReader(new InputStreamReader(url.openStream()));
         String line = reader.readLine();
 
@@ -194,6 +199,7 @@ public class HtmlGenome
         {
             if(pCDS.matcher(line).find())
             {
+            	r = new ArrayList<String>();
                 Matcher m = pGene.matcher(line);
                 String linesupp;
                 
@@ -219,28 +225,69 @@ public class HtmlGenome
 
                 while (mpNull.find())
                 {
+                	//System.out.println("simple : ");
                     String s = verifGene("simple", mpNull.group(1), genome, genSize, genSizeString);
-                    if(s != null) res.add(s);
+                	b = mpNull.group(1);
+                	if(s != null)
+                    {
+                    	ids = mpNull.group(1).split("\\.\\.");
+                    	r.add(s);
+                        r.add(b);
+                    }
+                	//System.out.println(b + " - " + s);
                 }
                 while (mpComplement.find())
                 {
+                	//System.out.println("\ncomp : ");
                     String s = verifGene("complement", mpComplement.group(1), genome, genSize, genSizeString);
-                    if(s != null) res.add(s);
+                    b = "complement(" + mpComplement.group(1) + ")";
+                    if(s != null)
+                    {
+                    	ids = mpComplement.group(1).split("\\.\\.");
+                    	r.add(s);
+                        r.add(b);
+                    }
+                	//System.out.println(b + " - " + s);
                 }
                 while (mpJoin.find())
                 {
+                	//System.out.println("join : ");
                     String s = verifGene("join", mpJoin.group(1), genome, genSize, genSizeString);
-                    if(s != null) res.add(s);
+                    b = "join(" + mpJoin.group(1) + ")";
+                    if(s != null)
+                    {
+                    	ids = mpJoin.group(1).split("\\.\\.");
+                    	r.add(s);
+                        r.add(b);
+                    }
+                	//System.out.println(b + " - " + s);
                 }   
                 while (mpCompJoin.find())
                 {
+                	//System.out.println("compjoin : ");
                     String s = verifGene("joincomplement", mpCompJoin.group(1), genome, genSize, genSizeString);
-                    if(s != null) res.add(s);
+                    b = mpCompJoin.group(1);
+                    if(s != null)
+                    {
+                    	ids = mpCompJoin.group(1).split("\\.\\.");
+                    	r.add(s);
+                        r.add(b);
+                    }
+                	//System.out.println(b + " - " + s);
                 }
+                
+                if(r.size() == 2)
+                	res.add(r);
             }
             line = reader.readLine();
         }
         reader.close();
+        
+        /*for(int i = 0; i < res.size(); i++)
+        {
+        	System.out.println(geneID + " : " + res.get(i).get(1));
+        	System.out.println(res.get(i).get(0) + "\n");
+        }*/
             
         return res;
     }
@@ -259,6 +306,7 @@ public class HtmlGenome
     	String res = "";
 		String gene = "";
         String[] ids = cds.split("\\.\\.");
+        
         if(ids.length != 2)
         {
             return null;

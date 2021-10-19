@@ -12,6 +12,7 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Hashtable;
+import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -63,6 +64,16 @@ public class Main
 	        	}
 	        	hierarchy = g.getHierarchy();
 
+	        	/*f.log("Genome type : " + g.getGenomeType());
+        		f.log(g.getGenome().size() + " =? " + g.getGenomeOkList().size());
+	        	
+	        	for(int i = 0; i < g.getGenomeOkList().size(); i++)
+	        	{
+	        		System.out.println("GenomeOkList :");
+	        		System.out.println(g.getGenomeOkList().get(i).get(1) + " - " + g.getGenomeOkList().get(i).get(2));
+	        		System.out.println(g.getGenomeOkList().get(i).get(0));
+	        	}*/
+
 	    		if(!(Arrays.equals(hierarchy, oldHierarchy)))
 	    		{
 	    			d.addAll(dS);
@@ -70,20 +81,34 @@ public class Main
             		f.addNode( hierarchy );
              		if (oldHierarchy != null )
              		{
-             			String str = "";
+             			int num = 0;
+             			for(List<String> gok : g.getGenomeOkList())
+             			{
+             				String str = "CDS " + oldHierarchy[oldHierarchy.length-1] + " " + nc + " " + gok.get(1) + "\n" + gok.get(0).toUpperCase();
+                 			
+                 			/*for(int j = 0; j < g.getGenome().size(); j++)
+                 				str += g.getGenome().get(j);*/
+                 			
+                 			String[] oldH2 = Arrays.copyOfRange(oldHierarchy, 0, oldHierarchy.length-1);
+                 			             			
+                			String fileSerialize = "./Results/"+String.join("/", oldH2) + "/" + oldHierarchy[oldHierarchy.length-1].replace(" ", "_");
+                			
+                			if(num == 0)
+                				fileSerialize += ".txt";
+                			else
+                				fileSerialize += "_"+num+".txt";
+                			
+                			File tmp = new File(fileSerialize);
+                			tmp.getParentFile().setWritable(true);
+                			tmp.getParentFile().mkdirs();
+                			
+                			BufferedWriter bufres = new BufferedWriter(new FileWriter(fileSerialize));
+                			bufres.write(str);
+                			bufres.close();
+                			
+                			num++;
+             			}
              			
-             			for(int i = 0; i < g.getGenome().size(); i++)
-             				str += g.getGenome().get(i);
-
-            			String fileSerialize = "./Results/"+String.join("/", oldHierarchy) +".txt";
-            			
-            			File tmp = new File(fileSerialize);
-            			tmp.getParentFile().setWritable(true);
-            			tmp.getParentFile().mkdirs();
-            			
-            			BufferedWriter bufres = new BufferedWriter(new FileWriter(fileSerialize));
-            			bufres.write(str);
-            			bufres.close();
 						
             			/*FileOutputStream fos = new FileOutputStream(tmp);
 			            ObjectOutputStream oos = new ObjectOutputStream(fos);
@@ -114,22 +139,18 @@ public class Main
 	static Hashtable<String, ArrayList<String>> getNcs(String[] ids) throws IOException
 	{
         Hashtable<String,  ArrayList<String>> ncs = new Hashtable<String,  ArrayList<String>>();
-        
-        for(String id : ids)
-        {
-        	ncs.put(id, new ArrayList<String>());
-        }
-        
+                
         for (String id : ids)
         {    
         	URL  url = new URL("ftp://ftp.ncbi.nlm.nih.gov/genomes/GENOME_REPORTS/IDS/" + id + ".ids");
-        	
-            ArrayList<String> listToAdd = ncs.get(id);
+
+            //ArrayList<String> listToAdd = ncs.get(id);
+            ArrayList<String> listToAdd = new ArrayList<String>();
 
             BufferedReader reader = new BufferedReader(new InputStreamReader(url.openStream()));
             String line = reader.readLine();
             while (line != null)
-            {   
+            {
                 Matcher m = Pattern.compile("NC_\\d{6}").matcher(line);
                 if(m.find())
                 {
@@ -139,7 +160,10 @@ public class Main
                 line = reader.readLine();
             }
             reader.close();
+            
+            ncs.put(id, listToAdd);
         }
+        
         return ncs;
 	}
 }
