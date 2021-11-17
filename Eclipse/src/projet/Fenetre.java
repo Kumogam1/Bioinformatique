@@ -121,6 +121,9 @@ public class Fenetre extends JFrame
         
         JLabel checkboxLabel = new JLabel("Choisissez les régions fonctionnelles que vous souhaitez télécharger :");
         
+        JButton validationButton = new JButton("Valider"); 
+        validationButton.setSize(10, 10);
+        
         JPanel checkboxPanel = new JPanel(); 
         
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(checkboxPanel);
@@ -150,7 +153,8 @@ public class Fenetre extends JFrame
                     .addComponent(jCheckBoxCustomTelomere, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 	.addComponent(jCheckBoxCustomTRna, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 	.addComponent(jCheckBoxCustom3Utr, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                	.addComponent(jCheckBoxCustom5Utr, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                	.addComponent(jCheckBoxCustom5Utr, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                	.addComponent(validationButton))
                 //.addContainerGap(430, Short.MAX_VALUE)
         ));
         layout.setVerticalGroup(
@@ -176,7 +180,8 @@ public class Fenetre extends JFrame
                 
                 .addComponent(jCheckBoxCustom3Utr, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 
-                .addComponent(jCheckBoxCustom5Utr, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addComponent(jCheckBoxCustom5Utr, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+            	.addComponent(validationButton)))
             	.addContainerGap(200, Short.MAX_VALUE)
         		);
 		
@@ -248,8 +253,11 @@ public class Fenetre extends JFrame
 	    
 	    JButton start = new JButton("Start"); 
 	    start.setSize(10, 10);  
+	    start.setEnabled(false);
+	    
 	    JButton stop  = new JButton("Stop");
 	    stop.setSize(10, 10); 
+	    stop.setEnabled(false);
 	    
 	 
         cst.fill = GridBagConstraints.HORIZONTAL;
@@ -306,7 +314,9 @@ public class Fenetre extends JFrame
 	    {
 	      public void actionPerformed(ActionEvent e)
 	      {
-	    	  log("Start Parsing... \n");
+	    	  log("Démarrage du parsing.\n");
+	    	  stop.setEnabled(true);
+	    	  start.setEnabled(false);
 	    	  startt = true;
 	    	  stopp = false;
 	    	   
@@ -318,9 +328,46 @@ public class Fenetre extends JFrame
 	    {
 	      public void actionPerformed(ActionEvent e)
 	      {
-	    	  log("Stop Parsing. \n");
+	    	  start.setEnabled(true);
+	    	  stop.setEnabled(false);
+	    	  log("Interruption du parsing. \n");
 	    	  stopp = true;
 	    	   
+	      }
+	    });
+	    
+	    // VALIDATION
+	    
+	    validationButton.addActionListener(new ActionListener()
+	    {
+	      public void actionPerformed(ActionEvent e)
+	      {
+	    	  start.setEnabled(true);
+	    	  validationButton.setEnabled(false);
+	    	  jCheckBoxCustomCDS.setEnabled(false);
+	          jCheckBoxCustomCentromere.setEnabled(false);
+	          jCheckBoxCustomIntron.setEnabled(false);
+	          jCheckBoxCustomMobileElem.setEnabled(false);
+	          jCheckBoxCustomNcRna.setEnabled(false);
+	          jCheckBoxCustomRRna.setEnabled(false);
+	          jCheckBoxCustomTelomere.setEnabled(false);
+	          jCheckBoxCustomTRna.setEnabled(false);
+	          jCheckBoxCustom3Utr.setEnabled(false);
+	          jCheckBoxCustom5Utr.setEnabled(false);
+	    	  
+	          log("Régions fonctionnelles sélectionnées :");
+	          
+	          if(jCheckBoxCustomCDS.isSelected()) {log(" CDS ");}
+	          if(jCheckBoxCustomCentromere.isSelected()) {log(" Centromère ");}
+	          if(jCheckBoxCustomIntron.isSelected()) {log(" Intron ");}
+	          if(jCheckBoxCustomMobileElem.isSelected()) {log(" mobile_element ");}
+	          if(jCheckBoxCustomNcRna.isSelected()) {log(" ncRNA ");}
+	          if(jCheckBoxCustomRRna.isSelected()) {log(" rRNA ");}
+	          if(jCheckBoxCustomTelomere.isSelected()) {log(" Telomere ");}
+	          if(jCheckBoxCustomTRna.isSelected()) {log(" tRNA ");}
+	          if(jCheckBoxCustom3Utr.isSelected()) {log(" 3'UTR ");}
+	          if(jCheckBoxCustom5Utr.isSelected()) {log(" 5'UTR ");}
+	          log("\n");
 	      }
 	    });
 	    

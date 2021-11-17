@@ -22,8 +22,8 @@ public class Main
 	{
 		Fenetre f = new Fenetre();
 		
-		f.log("BIENVENUE \n ");
-        f.log("Cliquez sur le bouton Start pour lancer le parsing.\n ");
+		f.log("Bienvenue dans GenBanks.\n ");
+        f.log("Selectionner une ou plusieurs régions fonctionnelles, puis cliquer sur Start pour\ndémarrer.\n ");
         
 		String[] ids = new String[] {"Viruses", "Archaea", "Bacteria", "Mito_metazoa", "Phages", "Plasmids", "Viroids","Samples", "dsDNA_Viruses", "Eukaryota"};
 
