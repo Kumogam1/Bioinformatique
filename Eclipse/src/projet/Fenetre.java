@@ -100,7 +100,7 @@ public class Fenetre extends JFrame
 	            		Object userObj = ((DefaultMutableTreeNode) value).getUserObject();
 	            		if(userObj instanceof Leaf) {
 		            		if( (int)((Leaf)userObj).attribute == 0) {
-		            			setIcon(loadIcon);
+		            			setIcon(goodIcon);
 		            		}
 		            		else if( (int)((Leaf)userObj).attribute == -1) {
 		            			setIcon(badIcon);

@@ -22,9 +22,10 @@ public class Main
 	{
 		Fenetre f = new Fenetre();
 		
-		f.log("BIENVENU \n ");
-		f.log("Attendez un moment  ... \n ");
-		String[] ids = new String[] {"Viruses","Eukaryota", "Archaea", "Bacteria", "Mito_metazoa", "Phages", "Plasmids", "Samples", "Viroids", "dsDNA_Viruses"};
+		f.log("BIENVENUE \n ");
+        f.log("Cliquez sur le bouton Start pour lancer le parsing.\n ");
+        
+		String[] ids = new String[] {"Viruses", "Archaea", "Bacteria", "Mito_metazoa", "Phages", "Plasmids", "Viroids","Samples", "dsDNA_Viruses", "Eukaryota"};
 
         ArrayList<String> d = new ArrayList<String>();
 		ArrayList<String> dS = new ArrayList<String>();
@@ -43,32 +44,21 @@ public class Main
         
         ArrayList<String> h = new ArrayList<String>(Arrays.asList("NC_000001", "NC_000010", "NC_000011", "NC_000012", "NC_000013", "NC_000014", "NC_000015", "NC_000016", "NC_000017", "NC_000018", "NC_000019", "NC_000002", "NC_000020", "NC_000021", "NC_000022", "NC_000003", "NC_000004", "NC_000005", "NC_000006", "NC_000007", "NC_000008", "NC_000009", "NC_012920", "NC_000023", "NC_000024", "NC_011137", "NC_013993"));
         
-
-        
-        f.log("Cliquez sur le bouton Strat pour lancer le parsing.\n ");
         while(f.stopp1)
-        	
         {	  
-        	 
-        	System.out.println(" ready for parsing ");
-        	 
-        	 
         	 while (f.startt)
              {
-             	
-             	
-             	
              	for (String id : ids)
                 {	
-             		
-             	
-             		System.out.println("Parising");
+             		System.out.println(id);
         	        ArrayList<String> nbId = ncs.get(id);
-        	        if (id == "Eukaryota")
+        	        //nbId = new ArrayList<>(Arrays.asList("NC_014649", "NC_012932"));
+        	        
+        	        /*if (id == "Eukaryota")
         	        {
         	        	h.addAll(nbId);
         	        	nbId = (ArrayList<String>) h;
-        	        }
+        	        }*/
 
         			for (String nc : nbId)
         			{
@@ -84,16 +74,6 @@ public class Main
         	        	}
         	        	hierarchy = g.getHierarchy();
 
-        	        	/*f.log("Genome type : " + g.getGenomeType());
-                		f.log(g.getGenome().size() + " =? " + g.getGenomeOkList().size());
-        	        	
-        	        	for(int i = 0; i < g.getGenomeOkList().size(); i++)
-        	        	{
-        	        		System.out.println("GenomeOkList :");
-        	        		System.out.println(g.getGenomeOkList().get(i).get(1) + " - " + g.getGenomeOkList().get(i).get(2));
-        	        		System.out.println(g.getGenomeOkList().get(i).get(0));
-        	        	}*/
-
         	    		if(!(Arrays.equals(hierarchy, oldHierarchy)))
         	    		{
         	    			d.addAll(dS);
@@ -104,11 +84,25 @@ public class Main
                      			int num = 0;
                      			for(List<String> gok : g.getGenomeOkList())
                      			{
-                     				String str = "CDS " + oldHierarchy[oldHierarchy.length-1] + " " + nc + " " + gok.get(1) + "\n" + gok.get(0).toUpperCase();
-                         			
-                         			/*for(int j = 0; j < g.getGenome().size(); j++)
-                         				str += g.getGenome().get(j);*/
-                         			
+                     				//System.out.println("type : " + gok.get(2));
+                     				String str = "";
+                     				if(gok.get(2).equals("simple") || gok.get(2).equals("complement"))
+                     				{
+                 						str = "CDS " + oldHierarchy[oldHierarchy.length-1] + " " + nc + " " + gok.get(1) + "\n" + gok.get(0).toUpperCase();
+                     				}
+                     				else
+                     				{
+                 						//System.out.println("seq : " + gok.get(0));
+             							//System.out.println("num : " + num);
+                 						String[] seqs = gok.get(0).split(";");
+                 						for(int num_seq = 0; num_seq < seqs.length; num_seq++)
+                 						{
+                 							str += "CDS " + oldHierarchy[oldHierarchy.length-1] + " " + nc + " " + gok.get(1) + " Exons " + (num_seq+1) + "\n" + seqs[num_seq].toUpperCase();
+                 							if(num_seq != seqs.length-1)
+                 								str += "\n";
+                     					}
+                     				}
+                     				
                          			String[] oldH2 = Arrays.copyOfRange(oldHierarchy, 0, oldHierarchy.length-1);
                          			             			
                         			String fileSerialize = "./Results/"+String.join("/", oldH2) + "/" + oldHierarchy[oldHierarchy.length-1].replace(" ", "_") + "_" + nc;
@@ -128,14 +122,6 @@ public class Main
                         			
                         			num++;
                      			}
-                     			
-        						
-                    			/*FileOutputStream fos = new FileOutputStream(tmp);
-        			            ObjectOutputStream oos = new ObjectOutputStream(fos);
-        			            oos.writeObject(tab);
-        			            oos.close();
-
-        			            fos.close();*/
                     		}
                     		oldHierarchy = hierarchy;
                     		f.log("Nouveau gene : " + hierarchy[5]);
@@ -148,7 +134,7 @@ public class Main
                  			 
                  			while(f.stopp) {
                  				
-                 				System.out.println("STOP ");
+                 				//System.out.println("STOP ");
                  			}
                  		}
         			}
