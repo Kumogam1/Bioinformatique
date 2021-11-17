@@ -1,5 +1,6 @@
 package projet;
-
+import java.awt.event.*;
+import java.awt.*;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -39,6 +40,11 @@ public class Fenetre extends JFrame
 	private JTextArea textLog = new JTextArea(65, 30);
 	private JProgressBar dlProgressBar = new JProgressBar();
 	private JTree tree;
+	
+     
+    public   Boolean stopp  = false;
+    public   Boolean stopp1 = true;
+    public   Boolean startt  = false;
 
 	private DefaultMutableTreeNode root  = new DefaultMutableTreeNode("root");
   
@@ -59,7 +65,7 @@ public class Fenetre extends JFrame
 		textLog.setForeground(Color.WHITE);
 		textLog.setFont(new Font("Arial", Font.CENTER_BASELINE, 12));
 		textLog.setEditable(false);
-		this.log("Bienvenue. Si vous n'avez pas encore de données téléchargées, \n merci de patienter le téléchargement va bientôt démarrer. \n");
+		
 		
 		/* ADDING ELEMENTS TO THE WINDOW */
 		
@@ -70,7 +76,112 @@ public class Fenetre extends JFrame
 		
 		JPanel topPanel = new JPanel();
 		
+		// CHECKBOX
+		
+		JCheckBoxCustom jCheckBoxCustomCDS = new projet.JCheckBoxCustom();
+        JCheckBoxCustom jCheckBoxCustomCentromere = new projet.JCheckBoxCustom();
+        JCheckBoxCustom jCheckBoxCustomIntron = new projet.JCheckBoxCustom();
+        JCheckBoxCustom jCheckBoxCustomMobileElem = new projet.JCheckBoxCustom();
+        JCheckBoxCustom jCheckBoxCustomNcRna = new projet.JCheckBoxCustom();
+        JCheckBoxCustom jCheckBoxCustomRRna = new projet.JCheckBoxCustom();
+        JCheckBoxCustom jCheckBoxCustomTelomere = new projet.JCheckBoxCustom();
+        JCheckBoxCustom jCheckBoxCustomTRna = new projet.JCheckBoxCustom();
+        JCheckBoxCustom jCheckBoxCustom3Utr = new projet.JCheckBoxCustom();
+        JCheckBoxCustom jCheckBoxCustom5Utr = new projet.JCheckBoxCustom();
+        
+        jCheckBoxCustomCDS.setBackground(new java.awt.Color(0, 0, 0));
+        jCheckBoxCustomCDS.setText("CDS");
+
+        jCheckBoxCustomCentromere.setBackground(new java.awt.Color(0, 0, 0));
+        jCheckBoxCustomCentromere.setText("Centromere");
+
+        jCheckBoxCustomIntron.setBackground(new java.awt.Color(0, 0, 0));
+        jCheckBoxCustomIntron.setText("Intron");
+
+        jCheckBoxCustomMobileElem.setBackground(new java.awt.Color(0, 0, 0));
+        jCheckBoxCustomMobileElem.setText("Mobile_element");
+        
+        jCheckBoxCustomNcRna.setBackground(new java.awt.Color(0, 0, 0));
+        jCheckBoxCustomNcRna.setText("ncRNA");
+        
+        jCheckBoxCustomRRna.setBackground(new java.awt.Color(0, 0, 0));
+        jCheckBoxCustomRRna.setText("rRNA");
+        
+        jCheckBoxCustomTelomere.setBackground(new java.awt.Color(0, 0, 0));
+        jCheckBoxCustomTelomere.setText("Telomere");
+        
+        jCheckBoxCustomTRna.setBackground(new java.awt.Color(0, 0, 0));
+        jCheckBoxCustomTRna.setText("tRNA");
+        
+        jCheckBoxCustom3Utr.setBackground(new java.awt.Color(0, 0, 0));
+        jCheckBoxCustom3Utr.setText("3'UTR");
+        
+        jCheckBoxCustom5Utr.setBackground(new java.awt.Color(0, 0, 0));
+        jCheckBoxCustom5Utr.setText("5'UTR");
+        
+        JLabel checkboxLabel = new JLabel("Choisissez les régions fonctionnelles que vous souhaitez télécharger :");
+        
+        JPanel checkboxPanel = new JPanel(); 
+        
+        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(checkboxPanel);
+        
+        checkboxPanel.setLayout(layout);
+        
+        layout.setAutoCreateContainerGaps(true);
+        layout.setAutoCreateGaps(true);
+        
+        layout.setHorizontalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(checkboxLabel)
+            .addGroup(layout.createParallelGroup()
+            		.addGap(219, 219, 219)
+                .addGroup(layout.createParallelGroup()
+                    .addComponent(jCheckBoxCustomCDS, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGap(144, 144, 144)
+                    .addComponent(jCheckBoxCustomCentromere, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGap(144, 144, 144)
+                    .addComponent(jCheckBoxCustomMobileElem, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGap(144, 144, 144)
+                    .addGap(144, 144, 144)
+                    .addComponent(jCheckBoxCustomNcRna, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGap(144, 144, 144)
+                    .addComponent(jCheckBoxCustomRRna, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(layout.createParallelGroup()
+                    .addComponent(jCheckBoxCustomTelomere, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                	.addComponent(jCheckBoxCustomTRna, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                	.addComponent(jCheckBoxCustom3Utr, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                	.addComponent(jCheckBoxCustom5Utr, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                //.addContainerGap(430, Short.MAX_VALUE)
+        ));
+        layout.setVerticalGroup(
+            layout.createSequentialGroup()
+            .addComponent(checkboxLabel)
+            .addGap(10, 144, 144)
+            .addGroup(layout.createSequentialGroup()
+            	.addGroup(layout.createParallelGroup())
+            	.addGroup(layout.createSequentialGroup()
+                .addComponent(jCheckBoxCustomCDS, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                
+                .addComponent(jCheckBoxCustomCentromere, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                
+                .addComponent(jCheckBoxCustomMobileElem, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                
+                .addComponent(jCheckBoxCustomNcRna, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                
+                .addComponent(jCheckBoxCustomRRna, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(jCheckBoxCustomTelomere, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                
+                .addComponent(jCheckBoxCustomTRna, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                
+                .addComponent(jCheckBoxCustom3Utr, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                
+                .addComponent(jCheckBoxCustom5Utr, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+            	.addContainerGap(200, Short.MAX_VALUE)
+        		);
+		
 		// TREE
+		
 		tree = new JTree(root);
 		tree.setCellRenderer(new DefaultTreeCellRenderer() {	
 			/**
@@ -116,10 +227,13 @@ public class Fenetre extends JFrame
 	    topPanel.add(treeScroll);
 	    topPanel.add(Box.createHorizontalStrut(20));
 	    
-	    topPanel.add(textScroll);
+	    JPanel rightPanel = new JPanel((new GridLayout(0, 1)));
+	    rightPanel.add(checkboxPanel, "North");
+	    rightPanel.add(textScroll, "South");
+	    topPanel.add(rightPanel);
 		
 		topPanel.setBackground(Color.BLACK);
-	    topPanel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10)); 
+	    topPanel.setBorder(BorderFactory.createEmptyBorder(0, 10, 10, 10)); 
 	    topPanel.setLayout(new BoxLayout(topPanel, BoxLayout.LINE_AXIS));
 	    
 	    mainPanel.add(topPanel);
@@ -128,10 +242,35 @@ public class Fenetre extends JFrame
 	    
 	    dlProgressBar.setPreferredSize(new Dimension(500, 20));
 	    dlProgressBar.setStringPainted(true);
+	     
+	    JPanel middlePanel = new JPanel(new GridBagLayout());
+	    GridBagConstraints cst = new GridBagConstraints();
 	    
-	    JPanel middlePanel = new JPanel();
+	    JButton start = new JButton("Start"); 
+	    start.setSize(10, 10);  
+	    JButton stop  = new JButton("Stop");
+	    stop.setSize(10, 10); 
+	    
+	 
+        cst.fill = GridBagConstraints.HORIZONTAL;
+        cst.gridx = 0;
+        cst.gridy = 0;
+        middlePanel.add(dlProgressBar,cst);
 	    middlePanel.setBackground(Color.BLACK);
-	    middlePanel.add(dlProgressBar);
+	   
+	    cst.fill = GridBagConstraints.HORIZONTAL;
+		cst.gridwidth = 1;
+		cst.gridx = 0;
+		cst.gridy = 1;
+		middlePanel.add(start,cst);
+	    
+		cst.fill = GridBagConstraints.HORIZONTAL;
+		cst.gridwidth = 1;
+		cst.gridx = 0;
+		cst.gridy = 2;
+		middlePanel.add(stop,cst);
+	   
+	 
 	    mainPanel.add(middlePanel);
 	    
 	    /* BOTTOM PANEL */
@@ -141,7 +280,7 @@ public class Fenetre extends JFrame
 	    
 	    bottomPanel.setBackground(Color.BLACK);
 	    button.setBackground(Color.DARK_GRAY);
-	    button.setForeground(Color.WHITE);
+	    button.setForeground(Color.red);
 	    button.setOpaque(true);
 	    
 	    JLabel copyright = new JLabel("BELQASMI Amine, EGNER Anaïs, GU Edouard, MAYER Thomas, MOISY Arthur");
@@ -151,7 +290,7 @@ public class Fenetre extends JFrame
 	    copyright.setBorder(new EmptyBorder(10,0,10,10)); //top,left,bottom,right
 
 	    bottomPanel.add(copyright, BorderLayout.SOUTH);
-	    
+	
 	    mainPanel.add(bottomPanel);
 	    
 	    
@@ -159,68 +298,32 @@ public class Fenetre extends JFrame
 	    
 	    this.setContentPane(mainPanel);
 	    this.setVisible(true);
-
 	    
-	    /*
-		// Panel mode vertical
-	    panel.setLayout(new BoxLayout(panel, BoxLayout.PAGE_AXIS));
+	    /* ACTION START STOP  */
 	    
-	    // Panel principal mode horizon
-        JPanel panelP = new JPanel();
-        panelP.setLayout(new BoxLayout(panelP, BoxLayout.LINE_AXIS));
-        
-        // Panel de gauche
-	    JPanel panelL = new JPanel();
-	    panelL.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10)); 
-	    panelL.setLayout(new BoxLayout(panelL, BoxLayout.PAGE_AXIS));
+	    // START
+	    start.addActionListener(new ActionListener()
+	    {
+	      public void actionPerformed(ActionEvent e)
+	      {
+	    	  log("Start Parsing... \n");
+	    	  startt = true;
+	    	  stopp = false;
+	    	   
+	      }
+	    });
 	    
-	    // Label hierarchie
-	    JLabel labelH = new JLabel();
-	    labelH.setText("Hierarchy");
-	    labelH.setForeground(Color.white);
-        panelL.add(labelH);
+	    // STOP
+	    stop.addActionListener(new ActionListener()
+	    {
+	      public void actionPerformed(ActionEvent e)
+	      {
+	    	  log("Stop Parsing. \n");
+	    	  stopp = true;
+	    	   
+	      }
+	    });
 	    
-	    // Panel de droite
-		JPanel panelR = new JPanel();
-		panelR.setLayout(new BoxLayout(panelR, BoxLayout.PAGE_AXIS));
-
-		// Label logs
-	    JLabel labelL = new JLabel();
-	    labelL.setText("Logs");
-	    labelL.setForeground(Color.white);
-	    panelR.add(labelL);
-	    
-	    // Panel logs
-	    panelR.add(new JScrollPane(textLog));
-	    
-	    // Panel bar
-	    JPanel panelRM = new JPanel();
-	    pbar.setPreferredSize(new Dimension(250, 20));
-	    pbar.setStringPainted(true);
-	    panelRM.add(pbar);
-	    Frame panelR;
-		panelR.add(panelRM);
-	    panelP.add(panelR);
-	    panel.add(panelP);
-	    
-	    // Label copyright
-	    JLabel copyright = new JLabel("BELQASMI Amine, EGNER Anais, GU Edouard, MAYER Thomas, MOISY Arthur");
-        copyright.setHorizontalAlignment(JLabel.CENTER);
-        copyright.setFont(new Font("Courier New", Font.CENTER_BASELINE, 12));
-        copyright.setForeground(Color.WHITE);
-        copyright.setBorder(new EmptyBorder(10,0,0,10)); 
-
-        panel.add(copyright, BorderLayout.SOUTH); 
-        
-	    panel.setBackground(Color.gray);
-	    panelL.setBackground(Color.gray);
-	    panelR.setBackground(Color.gray);
-	    panelRM.setBackground(Color.gray);
-	    panelP.setBackground(Color.gray);
-	    
-	    this.setContentPane(panel);
-	    this.setVisible(true);
-	    */
 	}
 	
 	public void addNode(String[] gen) {
