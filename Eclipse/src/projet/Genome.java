@@ -43,10 +43,30 @@ public class Genome
         for(int i = 0; i < this.geneList.size() ; i++)
         {
         	String g = this.geneList.get(i).get(0);
-        	if(g != null && (g.length() != 0) && (g.length() % 3 == 0) && dseq.contains(g.substring(0,3)) && fseq.contains(g.substring(g.length()-3, g.length())))
+        	
+        	/*if(this.geneList.get(i).get(2).equals("join") || this.geneList.get(i).get(2).equals("joincomplement"))
+        	{
+	        	System.out.println("genome.java : " + this.geneList.get(i).get(0));
+				System.out.println("genome.java nonnull ? : " + (g != null));
+				System.out.println("genome.java nonvide ? : " + !g.isEmpty());
+				System.out.println("genome.java %3 ? : " + (g.length() % 3 == 0));
+	        	System.out.println();
+        	}*/
+        	
+        	if(g != null 
+        		&& !g.isEmpty() 
+        		&& (this.geneList.get(i).get(2) != "simple" 
+        			|| (dseq.contains(g.substring(0,3)) 
+        			&& fseq.contains(g.substring(g.length()-3, g.length()))
+        			&& (g.length() % 3 == 0))))
             {
-            	this.geneOkList.add(this.geneList.get(i));
+            	//System.out.println("ISOK");
+        		//if(this.geneList.get(i).get(2).equals("join") || this.geneList.get(i).get(2).equals("joincomplement"))
+        		//	System.out.println("genome.java : " + this.geneList.get(i).get(1));
+        		this.geneOkList.add(this.geneList.get(i));
+            	//System.out.println();
             }
+        	//System.out.println();
         }
     }
     
