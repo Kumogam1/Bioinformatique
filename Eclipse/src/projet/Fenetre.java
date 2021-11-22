@@ -78,6 +78,8 @@ public class Fenetre extends JFrame
 		
 		// CHECKBOX
 		
+		// Régions fonctionnelles
+		
 		JCheckBoxCustom jCheckBoxCustomCDS = new projet.JCheckBoxCustom();
         JCheckBoxCustom jCheckBoxCustomCentromere = new projet.JCheckBoxCustom();
         JCheckBoxCustom jCheckBoxCustomIntron = new projet.JCheckBoxCustom();
@@ -88,6 +90,7 @@ public class Fenetre extends JFrame
         JCheckBoxCustom jCheckBoxCustomTRna = new projet.JCheckBoxCustom();
         JCheckBoxCustom jCheckBoxCustom3Utr = new projet.JCheckBoxCustom();
         JCheckBoxCustom jCheckBoxCustom5Utr = new projet.JCheckBoxCustom();
+        JCheckBoxCustom jCheckBoxCustomRfAll = new projet.JCheckBoxCustom();
         
         jCheckBoxCustomCDS.setBackground(new java.awt.Color(0, 0, 0));
         jCheckBoxCustomCDS.setText("CDS");
@@ -119,6 +122,9 @@ public class Fenetre extends JFrame
         jCheckBoxCustom5Utr.setBackground(new java.awt.Color(0, 0, 0));
         jCheckBoxCustom5Utr.setText("5'UTR");
         
+        jCheckBoxCustomRfAll.setBackground(new java.awt.Color(0, 0, 0));
+        jCheckBoxCustomRfAll.setText("Tout sélectionner");
+        
         JLabel checkboxLabel = new JLabel("Choisissez les régions fonctionnelles que vous souhaitez télécharger :");
         
         JButton validationButton = new JButton("Valider"); 
@@ -143,6 +149,8 @@ public class Fenetre extends JFrame
                     .addGap(144, 144, 144)
                     .addComponent(jCheckBoxCustomCentromere, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGap(144, 144, 144)
+                    .addComponent(jCheckBoxCustomIntron, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGap(144, 144, 144)
                     .addComponent(jCheckBoxCustomMobileElem, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGap(144, 144, 144)
                     .addGap(144, 144, 144)
@@ -154,6 +162,7 @@ public class Fenetre extends JFrame
                 	.addComponent(jCheckBoxCustomTRna, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 	.addComponent(jCheckBoxCustom3Utr, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 	.addComponent(jCheckBoxCustom5Utr, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                	.addComponent(jCheckBoxCustomRfAll, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 	.addComponent(validationButton))
                 //.addContainerGap(430, Short.MAX_VALUE)
         ));
@@ -168,6 +177,8 @@ public class Fenetre extends JFrame
                 
                 .addComponent(jCheckBoxCustomCentromere, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 
+                .addComponent(jCheckBoxCustomIntron, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                
                 .addComponent(jCheckBoxCustomMobileElem, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 
                 .addComponent(jCheckBoxCustomNcRna, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -181,6 +192,7 @@ public class Fenetre extends JFrame
                 .addComponent(jCheckBoxCustom3Utr, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 
                 .addComponent(jCheckBoxCustom5Utr, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jCheckBoxCustomRfAll, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
             	.addComponent(validationButton)))
             	.addContainerGap(200, Short.MAX_VALUE)
         		);
@@ -336,6 +348,57 @@ public class Fenetre extends JFrame
 	      }
 	    });
 	    
+	    // ALL Region Fonctionnelles
+	    jCheckBoxCustomRfAll.addActionListener(new ActionListener()
+	    {
+	      public void actionPerformed(ActionEvent e)
+	      {
+	    	  if(jCheckBoxCustomRfAll.isSelected()) {
+		    	  jCheckBoxCustomCDS.setEnabled(false);
+		    	  jCheckBoxCustomCDS.setSelected(true);
+		    	  
+		          jCheckBoxCustomCentromere.setEnabled(false);
+		          jCheckBoxCustomCentromere.setSelected(true);
+		          
+		          jCheckBoxCustomIntron.setEnabled(false);
+		          jCheckBoxCustomIntron.setSelected(true);
+		          
+		          jCheckBoxCustomMobileElem.setEnabled(false);
+		          jCheckBoxCustomMobileElem.setSelected(true);
+		          
+		          jCheckBoxCustomNcRna.setEnabled(false);
+		          jCheckBoxCustomNcRna.setSelected(true);
+		          
+		          jCheckBoxCustomRRna.setEnabled(false);
+		          jCheckBoxCustomRRna.setSelected(true);
+		          
+		          jCheckBoxCustomTelomere.setEnabled(false);
+		          jCheckBoxCustomTelomere.setSelected(true);
+		          
+		          jCheckBoxCustomTRna.setEnabled(false);
+		          jCheckBoxCustomTRna.setSelected(true);
+		          
+		          jCheckBoxCustom3Utr.setEnabled(false);
+		          jCheckBoxCustom3Utr.setSelected(true);
+		          
+		          jCheckBoxCustom5Utr.setEnabled(false);
+		          jCheckBoxCustom5Utr.setSelected(true);}
+	    	  else {
+	    		  jCheckBoxCustomCDS.setEnabled(true);
+		          jCheckBoxCustomCentromere.setEnabled(true);
+		          jCheckBoxCustomIntron.setEnabled(true);
+		          jCheckBoxCustomMobileElem.setEnabled(true);
+		          jCheckBoxCustomNcRna.setEnabled(true);
+		          jCheckBoxCustomRRna.setEnabled(true);
+		          jCheckBoxCustomTelomere.setEnabled(true);
+		          jCheckBoxCustomTRna.setEnabled(true);
+		          jCheckBoxCustom3Utr.setEnabled(true);
+		          jCheckBoxCustom5Utr.setEnabled(true);
+	    		  
+	    	  }
+	      }
+	    });
+	    
 	    // VALIDATION
 	    
 	    validationButton.addActionListener(new ActionListener()
@@ -354,6 +417,7 @@ public class Fenetre extends JFrame
 	          jCheckBoxCustomTRna.setEnabled(false);
 	          jCheckBoxCustom3Utr.setEnabled(false);
 	          jCheckBoxCustom5Utr.setEnabled(false);
+	          jCheckBoxCustomRfAll.setEnabled(false);
 	    	  
 	          log("Régions fonctionnelles sélectionnées :");
 	          
