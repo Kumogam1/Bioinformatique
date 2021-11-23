@@ -42,10 +42,13 @@ public class Fenetre extends JFrame
 	private JTree tree;
 	
      
-    public   Boolean stopp  = false;
-    public   Boolean stopp1 = true;
-    public   Boolean startt  = false;
-
+    public Boolean stopp  = false;
+    public Boolean stopp1 = true;
+    public Boolean startt  = false;
+    
+    public ArrayList<String> lrf = new ArrayList<String>();
+    public ArrayList<String> ldm = new ArrayList<String>();
+    
 	private DefaultMutableTreeNode root  = new DefaultMutableTreeNode("root");
   
 	private int nbLogs = 0;
@@ -504,30 +507,30 @@ public class Fenetre extends JFrame
 	    	  
 	          log("Régions fonctionnelles sélectionnées :");
 	          
-	          if(jCheckBoxCustomCDS.isSelected()) {log(" CDS ");}
-	          if(jCheckBoxCustomCentromere.isSelected()) {log(" Centromère ");}
-	          if(jCheckBoxCustomIntron.isSelected()) {log(" Intron ");}
-	          if(jCheckBoxCustomMobileElem.isSelected()) {log(" mobile_element ");}
-	          if(jCheckBoxCustomNcRna.isSelected()) {log(" ncRNA ");}
-	          if(jCheckBoxCustomRRna.isSelected()) {log(" rRNA ");}
-	          if(jCheckBoxCustomTelomere.isSelected()) {log(" Telomere ");}
-	          if(jCheckBoxCustomTRna.isSelected()) {log(" tRNA ");}
-	          if(jCheckBoxCustom3Utr.isSelected()) {log(" 3'UTR ");}
-	          if(jCheckBoxCustom5Utr.isSelected()) {log(" 5'UTR ");}
+	          if(jCheckBoxCustomCDS.isSelected()) {lrf.add("CDS");}
+	          if(jCheckBoxCustomCentromere.isSelected()) {lrf.add("Centromère");}
+	          if(jCheckBoxCustomIntron.isSelected()) {lrf.add("Intron");}
+	          if(jCheckBoxCustomMobileElem.isSelected()) {lrf.add("mobile_element");}
+	          if(jCheckBoxCustomNcRna.isSelected()) {lrf.add("ncRNA");}
+	          if(jCheckBoxCustomRRna.isSelected()) {lrf.add("rRNA");}
+	          if(jCheckBoxCustomTelomere.isSelected()) {lrf.add("Telomere");}
+	          if(jCheckBoxCustomTRna.isSelected()) {lrf.add("tRNA");}
+	          if(jCheckBoxCustom3Utr.isSelected()) {lrf.add("3'UTR");}
+	          if(jCheckBoxCustom5Utr.isSelected()) {lrf.add("5'UTR");}
 	          log("\n");
 	          
 	          log("Domaines sélectionnés :");
 	          
-	          if(jCheckBoxCustomViruses.isSelected()) {log(" Viruses ");}
-	          if(jCheckBoxCustomArchaea.isSelected()) {log(" Archaea ");}
-	          if(jCheckBoxCustomBacteria.isSelected()) {log(" Bacteria ");}
-	          if(jCheckBoxCustomMito_metazoa.isSelected()) {log(" Mito_metazoa ");}
-	          if(jCheckBoxCustomPhages.isSelected()) {log(" Phages ");}
-	          if(jCheckBoxCustomPlasmids.isSelected()) {log(" Plasmids ");}
-	          if(jCheckBoxCustomViroids.isSelected()) {log(" Viroids ");}
-	          if(jCheckBoxCustomSamples.isSelected()) {log(" Samples ");}
-	          if(jCheckBoxCustomdsDNA_Viruses.isSelected()) {log(" DNA_Viruses ");}
-	          if(jCheckBoxCustomEukaryota.isSelected()) {log(" Eukaryota ");}
+	          if(jCheckBoxCustomViruses.isSelected()) {ldm.add("Viruses");}
+	          if(jCheckBoxCustomArchaea.isSelected()) {ldm.add("Archaea");}
+	          if(jCheckBoxCustomBacteria.isSelected()) {ldm.add("Bacteria");}
+	          if(jCheckBoxCustomMito_metazoa.isSelected()) {ldm.add("Mito_metazoa");}
+	          if(jCheckBoxCustomPhages.isSelected()) {ldm.add("Phages");}
+	          if(jCheckBoxCustomPlasmids.isSelected()) {ldm.add("Plasmids");}
+	          if(jCheckBoxCustomViroids.isSelected()) {ldm.add("Viroids");}
+	          if(jCheckBoxCustomSamples.isSelected()) {ldm.add("Samples");}
+	          if(jCheckBoxCustomdsDNA_Viruses.isSelected()) {ldm.add("DNA_Viruses");}
+	          if(jCheckBoxCustomEukaryota.isSelected()) {ldm.add("Eukaryota");}
 	          log("\n");
 	          
 	          log("Cliquer sur Start pour démarrer ou Annuler pour changer votre sélection. \n");

@@ -33,25 +33,24 @@ public class Main
 		String[] hierarchy ;
 		String[] oldHierarchy = null;
 		
-        Hashtable<String, ArrayList<String>> ncs = getNcs(ids);
-        
+       
+		Hashtable<String, ArrayList<String>> ncs = getNcs(ids);    	        
         int nbNcs = 0;
         
-        for (String id : ids)
-        	nbNcs += ncs.get(id).size();
-        
+        for (String dm : f.ldm)
+        	nbNcs += ncs.get(dm).size();
         f.initBarre(nbNcs);
+    
         
         ArrayList<String> h = new ArrayList<String>(Arrays.asList("NC_000001", "NC_000010", "NC_000011", "NC_000012", "NC_000013", "NC_000014", "NC_000015", "NC_000016", "NC_000017", "NC_000018", "NC_000019", "NC_000002", "NC_000020", "NC_000021", "NC_000022", "NC_000003", "NC_000004", "NC_000005", "NC_000006", "NC_000007", "NC_000008", "NC_000009", "NC_012920", "NC_000023", "NC_000024", "NC_011137", "NC_013993"));
-        
+        System.out.println("aoizj");
         while(f.stopp1)
         {	  
         	 while (f.startt)
              {
-             	for (String id : ids)
-                {	
-             		System.out.println(id);
-        	        ArrayList<String> nbId = ncs.get(id);
+                for(String dm : f.ldm){	
+             		System.out.println(dm);
+        	        ArrayList<String> nbId = ncs.get(dm);
         	        //nbId = new ArrayList<>(Arrays.asList("NC_014649", "NC_012932"));
         	        
         	        /*if (id == "Eukaryota")
