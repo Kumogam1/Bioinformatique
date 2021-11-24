@@ -152,10 +152,10 @@ public class Fenetre extends JFrame
         jCheckBoxCustomBacteria.setText("Bacteria");
 
         jCheckBoxCustomMito_metazoa.setBackground(new java.awt.Color(0, 0, 0));
-        jCheckBoxCustomMito_metazoa.setText("Mito_metazoa");
+        jCheckBoxCustomMito_metazoa.setText("Mitochondrion");
         
         jCheckBoxCustomPhages.setBackground(new java.awt.Color(0, 0, 0));
-        jCheckBoxCustomPhages.setText("Phages");
+        jCheckBoxCustomPhages.setText("Chloroplast");
         
         jCheckBoxCustomPlasmids.setBackground(new java.awt.Color(0, 0, 0));
         jCheckBoxCustomPlasmids.setText("Plasmids");
@@ -507,30 +507,90 @@ public class Fenetre extends JFrame
 	    	  
 	          log("Régions fonctionnelles sélectionnées :");
 	          
-	          if(jCheckBoxCustomCDS.isSelected()) {lrf.add("CDS");}
-	          if(jCheckBoxCustomCentromere.isSelected()) {lrf.add("Centromère");}
-	          if(jCheckBoxCustomIntron.isSelected()) {lrf.add("Intron");}
-	          if(jCheckBoxCustomMobileElem.isSelected()) {lrf.add("mobile_element");}
-	          if(jCheckBoxCustomNcRna.isSelected()) {lrf.add("ncRNA");}
-	          if(jCheckBoxCustomRRna.isSelected()) {lrf.add("rRNA");}
-	          if(jCheckBoxCustomTelomere.isSelected()) {lrf.add("Telomere");}
-	          if(jCheckBoxCustomTRna.isSelected()) {lrf.add("tRNA");}
-	          if(jCheckBoxCustom3Utr.isSelected()) {lrf.add("3'UTR");}
-	          if(jCheckBoxCustom5Utr.isSelected()) {lrf.add("5'UTR");}
+	          if(jCheckBoxCustomCDS.isSelected()) {
+	        	  lrf.add("CDS");
+	        	  log("CDS");
+	          }
+	          if(jCheckBoxCustomCentromere.isSelected()) {
+	        	  lrf.add("Centromère");
+	        	  log("Centromère");
+	          }
+	          if(jCheckBoxCustomIntron.isSelected()) {
+	        	  lrf.add("Intron");
+	        	  log("Intron");
+	          }
+	          if(jCheckBoxCustomMobileElem.isSelected()) {
+	        	  lrf.add("mobile_element");
+	        	  log("mobile_element");
+	          }
+	          if(jCheckBoxCustomNcRna.isSelected()) {
+	        	  lrf.add("ncRNA");
+	        	  log("ncRNA");
+	          }
+	          if(jCheckBoxCustomRRna.isSelected()) {
+	        	  lrf.add("rRNA");
+	        	  log("rRNA");
+	          }
+	          if(jCheckBoxCustomTelomere.isSelected()) {
+	        	  lrf.add("Telomere");
+	        	  log("Telomere");
+	          }
+	          if(jCheckBoxCustomTRna.isSelected()) {
+	        	  lrf.add("tRNA");
+	        	  log("tRNA");
+	          }
+	          if(jCheckBoxCustom3Utr.isSelected()) {
+	        	  lrf.add("3'UTR");
+	        	  log("3'UTR");
+	          }
+	          if(jCheckBoxCustom5Utr.isSelected()) {
+	        	  lrf.add("5'UTR");
+	        	  log("5'UTR");
+	          }
 	          log("\n");
 	          
 	          log("Domaines sélectionnés :");
 	          
-	          if(jCheckBoxCustomViruses.isSelected()) {ldm.add("Viruses");}
-	          if(jCheckBoxCustomArchaea.isSelected()) {ldm.add("Archaea");}
-	          if(jCheckBoxCustomBacteria.isSelected()) {ldm.add("Bacteria");}
-	          if(jCheckBoxCustomMito_metazoa.isSelected()) {ldm.add("Mito_metazoa");}
-	          if(jCheckBoxCustomPhages.isSelected()) {ldm.add("Phages");}
-	          if(jCheckBoxCustomPlasmids.isSelected()) {ldm.add("Plasmids");}
-	          if(jCheckBoxCustomViroids.isSelected()) {ldm.add("Viroids");}
-	          if(jCheckBoxCustomSamples.isSelected()) {ldm.add("Samples");}
-	          if(jCheckBoxCustomdsDNA_Viruses.isSelected()) {ldm.add("dsDNA_Viruses");}
-	          if(jCheckBoxCustomEukaryota.isSelected()) {ldm.add("Eukaryota");}
+	          if(jCheckBoxCustomViruses.isSelected()) {
+	        	  ldm.add("Viruses");
+	        	  log("Viruses");
+	          }
+	          if(jCheckBoxCustomArchaea.isSelected()) {
+	        	  ldm.add("Archaea");
+	        	  log("Archaea");
+	          }
+	          if(jCheckBoxCustomBacteria.isSelected()) {
+	        	  ldm.add("Bacteria");
+	        	  log("Bacteria");
+	          }
+	          if(jCheckBoxCustomMito_metazoa.isSelected()) {
+	        	  ldm.add("Mitochondrion");
+	        	  log("Mitochondrion");
+	          }
+	          if(jCheckBoxCustomPhages.isSelected()) {
+	        	  ldm.add("Chloroplast");
+	        	  log("Chloroplast");
+	          }
+	          if(jCheckBoxCustomPlasmids.isSelected()) {
+	        	  ldm.add("Plasmids");
+	        	  log("Plasmids");
+	          }
+	          if(jCheckBoxCustomViroids.isSelected()) {
+	        	  ldm.add("Viroids");
+	        	  log("Viroids");
+	          }
+	          if(jCheckBoxCustomSamples.isSelected()) {
+	        	  ldm.add("Samples");
+	        	  log("Samples");
+	          }
+	          if(jCheckBoxCustomdsDNA_Viruses.isSelected()) {
+	        	  ldm.add("dsDNA_Viruses");
+	        	  log("dsDNA_Viruses");
+	          }
+	          if(jCheckBoxCustomEukaryota.isSelected()) {
+	        	  ldm.add("Eukaryota");
+	        	  log("Viruses");
+	          }
 	          log("\n");
 	          
 	          log("Cliquer sur Start pour démarrer ou Annuler pour changer votre sélection. \n");

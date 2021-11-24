@@ -25,7 +25,7 @@ public class Main
 		f.log("Bienvenue dans GenBanks.\n ");
         f.log("Selectionner une ou plusieurs régions fonctionnelles, puis cliquer sur Start pour\ndémarrer.\n ");
         
-		//String[] ids = new String[] {"Viruses", "Archaea", "Bacteria", "Mito_metazoa", "Phages", "Plasmids", "Viroids","Samples", "dsDNA_Viruses", "Eukaryota"};
+		//String[] ids = new String[] {"Viruses", "Archaea", "Bacteria", "Mito_metazoa", "Phages", "Plasmids", "Viroids", "Samples", "dsDNA_Viruses", "Eukaryota"};
 
         ArrayList<String> d = new ArrayList<String>();
 		ArrayList<String> dS = new ArrayList<String>();
@@ -126,26 +126,18 @@ public class Main
         	    		
         	    		// on termine le gene puis stop 
         	    		if(f.stopp)
-                 		{
-                 			 
-                 			while(f.stopp) {
-                 				
+                 		{ 
+                 			while(f.stopp) {			
                  				//System.out.println("STOP ");
                  			}
                  		}
-        			}
-
-	             	
+        			}	
 	         	}
-	             	
 	            // A VERIFIER  	
 	            f.startt = false ;
 	            f.stopp1 = false;
 	            f.log("Fin \n");
-        	
             }
-        	 
-        	 
         }
         
        }
