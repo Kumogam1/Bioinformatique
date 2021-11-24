@@ -529,7 +529,7 @@ public class Fenetre extends JFrame
 	          if(jCheckBoxCustomPlasmids.isSelected()) {ldm.add("Plasmids");}
 	          if(jCheckBoxCustomViroids.isSelected()) {ldm.add("Viroids");}
 	          if(jCheckBoxCustomSamples.isSelected()) {ldm.add("Samples");}
-	          if(jCheckBoxCustomdsDNA_Viruses.isSelected()) {ldm.add("DNA_Viruses");}
+	          if(jCheckBoxCustomdsDNA_Viruses.isSelected()) {ldm.add("dsDNA_Viruses");}
 	          if(jCheckBoxCustomEukaryota.isSelected()) {ldm.add("Eukaryota");}
 	          log("\n");
 	          

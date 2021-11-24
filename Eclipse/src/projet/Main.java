@@ -25,30 +25,27 @@ public class Main
 		f.log("Bienvenue dans GenBanks.\n ");
         f.log("Selectionner une ou plusieurs régions fonctionnelles, puis cliquer sur Start pour\ndémarrer.\n ");
         
-		String[] ids = new String[] {"Viruses", "Archaea", "Bacteria", "Mito_metazoa", "Phages", "Plasmids", "Viroids","Samples", "dsDNA_Viruses", "Eukaryota"};
+		//String[] ids = new String[] {"Viruses", "Archaea", "Bacteria", "Mito_metazoa", "Phages", "Plasmids", "Viroids","Samples", "dsDNA_Viruses", "Eukaryota"};
 
         ArrayList<String> d = new ArrayList<String>();
 		ArrayList<String> dS = new ArrayList<String>();
 		
 		String[] hierarchy ;
 		String[] oldHierarchy = null;
-		
-       
-		Hashtable<String, ArrayList<String>> ncs = getNcs(ids);    	        
-        int nbNcs = 0;
-        
-        for (String dm : f.ldm)
-        	nbNcs += ncs.get(dm).size();
-        f.initBarre(nbNcs);
-    
         
         ArrayList<String> h = new ArrayList<String>(Arrays.asList("NC_000001", "NC_000010", "NC_000011", "NC_000012", "NC_000013", "NC_000014", "NC_000015", "NC_000016", "NC_000017", "NC_000018", "NC_000019", "NC_000002", "NC_000020", "NC_000021", "NC_000022", "NC_000003", "NC_000004", "NC_000005", "NC_000006", "NC_000007", "NC_000008", "NC_000009", "NC_012920", "NC_000023", "NC_000024", "NC_011137", "NC_013993"));
-        System.out.println("aoizj");
         while(f.stopp1)
         {	  
         	 while (f.startt)
              {
-                for(String dm : f.ldm){	
+        		 Hashtable<String, ArrayList<String>> ncs = getNcs(f.ldm);    	        
+        	        int nbNcs = 0;
+        	        
+        	        for (String dm : f.ldm)
+        	        	nbNcs += ncs.get(dm).size();
+        	        f.initBarre(nbNcs);
+        	        
+        		 for(String dm : f.ldm){	
              		System.out.println(dm);
         	        ArrayList<String> nbId = ncs.get(dm);
         	        //nbId = new ArrayList<>(Arrays.asList("NC_014649", "NC_012932"));
@@ -138,13 +135,13 @@ public class Main
                  		}
         			}
 
-             	
-         	}
-             	
-            // A VERIFIER  	
-            f.startt = false ;
-            f.stopp1 = false;
-            f.log("Fin \n");
+	             	
+	         	}
+	             	
+	            // A VERIFIER  	
+	            f.startt = false ;
+	            f.stopp1 = false;
+	            f.log("Fin \n");
         	
             }
         	 
@@ -165,14 +162,14 @@ public class Main
 		return null;
 	}
 		
-	static Hashtable<String, ArrayList<String>> getNcs(String[] ids) throws IOException
+	static Hashtable<String, ArrayList<String>> getNcs(ArrayList<String> ids) throws IOException
 	{
         Hashtable<String,  ArrayList<String>> ncs = new Hashtable<String,  ArrayList<String>>();
                 
         for (String id : ids)
         {    
         	URL  url = new URL("ftp://ftp.ncbi.nlm.nih.gov/genomes/GENOME_REPORTS/IDS/" + id + ".ids");
-
+        	System.out.println(id);
             //ArrayList<String> listToAdd = ncs.get(id);
             ArrayList<String> listToAdd = new ArrayList<String>();
 
