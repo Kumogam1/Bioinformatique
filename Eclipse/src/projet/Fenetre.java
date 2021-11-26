@@ -549,7 +549,7 @@ public class Fenetre extends JFrame
 	          }
 	          log("\n");
 	          
-	          log("Domaines sélectionnés :");
+	          log("Domaines selectionnes :");
 	          
 	          if(jCheckBoxCustomViruses.isSelected()) {
 	        	  ldm.add("Viruses");
@@ -594,8 +594,8 @@ public class Fenetre extends JFrame
 	          log("\n");
 	          
 	          log("Cliquer sur Start pour démarrer ou Annuler pour changer votre sélection. \n");
-	    	  startt = true;
-	    	  stopp = false;
+	    	  //startt = true;
+	    	  //stopp = false;
 	      }
 	    });
 	    

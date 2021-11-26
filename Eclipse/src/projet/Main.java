@@ -92,11 +92,12 @@ public class Main
 							f.doneBarre(1);
 							f.logProgress(nc);
 							
-							if(allreadyDone.contains(nc))
-							{
-				        		f.log(nc + " deja passé ");
-				        		continue;
-				        	}
+							String ncRegion = f.lrf + nc;
+						
+							if(allreadyDone.contains(ncRegion)) {
+								f.log(ncRegion + " deja passé ");
+								continue;
+							}
 							
 							Genome g = getGenome(nc, rf);
 							if (g == null) {
@@ -198,7 +199,7 @@ public class Main
 									f.log("Nouveau gene : " + hierarchy[5]);
 							}
 							
-							doneInSpecie.add(nc);
+							doneInSpecie.add(ncRegion);
 							
 							for(String i : doneInSpecie)
 							{
