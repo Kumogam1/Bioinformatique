@@ -152,7 +152,7 @@ public class Fenetre extends JFrame
         jCheckBoxCustomBacteria.setText("Bacteria");
 
         jCheckBoxCustomMito_metazoa.setBackground(new java.awt.Color(0, 0, 0));
-        jCheckBoxCustomMito_metazoa.setText("Mitochondrion");
+        jCheckBoxCustomMito_metazoa.setText("Mito_metazoa");
         
         jCheckBoxCustomPhages.setBackground(new java.awt.Color(0, 0, 0));
         jCheckBoxCustomPhages.setText("Chloroplast");
@@ -505,15 +505,15 @@ public class Fenetre extends JFrame
     		  jCheckBoxCustomEukaryota.setEnabled(false);
     		  jCheckBoxCustomDomAll.setEnabled(false);
 	    	  
-	          log("Régions fonctionnelles sélectionnées :");
+	          log("Regions fonctionnelles selectionnees :");
 	          
 	          if(jCheckBoxCustomCDS.isSelected()) {
 	        	  lrf.add("CDS");
 	        	  log("CDS");
 	          }
 	          if(jCheckBoxCustomCentromere.isSelected()) {
-	        	  lrf.add("Centromère");
-	        	  log("Centromère");
+	        	  lrf.add("Centromere");
+	        	  log("Centromere");
 	          }
 	          if(jCheckBoxCustomIntron.isSelected()) {
 	        	  lrf.add("Intron");
@@ -564,12 +564,12 @@ public class Fenetre extends JFrame
 	        	  log("Bacteria");
 	          }
 	          if(jCheckBoxCustomMito_metazoa.isSelected()) {
-	        	  ldm.add("Mitochondrion");
-	        	  log("Mitochondrion");
+	        	  ldm.add("Mito_metazoa");
+	        	  log("Mito_metazoa");
 	          }
 	          if(jCheckBoxCustomPhages.isSelected()) {
-	        	  ldm.add("Chloroplast");
-	        	  log("Chloroplast");
+	        	  ldm.add("Phages");
+	        	  log("Phages");
 	          }
 	          if(jCheckBoxCustomPlasmids.isSelected()) {
 	        	  ldm.add("Plasmids");
@@ -589,11 +589,13 @@ public class Fenetre extends JFrame
 	          }
 	          if(jCheckBoxCustomEukaryota.isSelected()) {
 	        	  ldm.add("Eukaryota");
-	        	  log("Viruses");
+	        	  log("Eukaryota");
 	          }
 	          log("\n");
 	          
 	          log("Cliquer sur Start pour démarrer ou Annuler pour changer votre sélection. \n");
+	    	  startt = true;
+	    	  stopp = false;
 	      }
 	    });
 	    

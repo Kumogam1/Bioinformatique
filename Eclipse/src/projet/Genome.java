@@ -22,7 +22,7 @@ public class Genome
         this.geneOkList = new ArrayList<List<String>>();
     }
     
-    public Genome(String id) throws IOException
+    public Genome(String id, String rf) throws IOException
     {
         this.genome = HtmlGenome.getGenome(id, this.geneSizeMax);
         this.geneOkList = new ArrayList<List<String>>();
@@ -38,35 +38,28 @@ public class Genome
         	geneSize += this.genome.get(i).length();
         }
         
-        this.geneList = HtmlGenome.getSeq(id, this.genome, geneSize, this.geneSizeMax);
+        this.geneList = HtmlGenome.getSeq(id, this.genome, geneSize, this.geneSizeMax, rf);
         
         for(int i = 0; i < this.geneList.size() ; i++)
         {
         	String g = this.geneList.get(i).get(0);
-        	
-        	/*if(this.geneList.get(i).get(2).equals("join") || this.geneList.get(i).get(2).equals("joincomplement"))
-        	{
-	        	System.out.println("genome.java : " + this.geneList.get(i).get(0));
-				System.out.println("genome.java nonnull ? : " + (g != null));
-				System.out.println("genome.java nonvide ? : " + !g.isEmpty());
-				System.out.println("genome.java %3 ? : " + (g.length() % 3 == 0));
-	        	System.out.println();
-        	}*/
+
+        	/*
+        	System.out.println(this.geneList.get(i).get(2));
+        	System.out.println(this.geneList.get(i).get(1));
+        	System.out.println(this.geneList.get(i).get(0));
+        	System.out.println();
+        	 */
         	
         	if(g != null 
         		&& !g.isEmpty() 
         		&& (this.geneList.get(i).get(2) != "simple" 
-        			|| (dseq.contains(g.substring(0,3)) 
-        			&& fseq.contains(g.substring(g.length()-3, g.length()))
-        			&& (g.length() % 3 == 0))))
+        			|| ((g.length() % 3 == 0)
+        			&& dseq.contains(g.substring(0,3)) 
+        			&& fseq.contains(g.substring(g.length()-3, g.length())))))
             {
-            	//System.out.println("ISOK");
-        		//if(this.geneList.get(i).get(2).equals("join") || this.geneList.get(i).get(2).equals("joincomplement"))
-        		//	System.out.println("genome.java : " + this.geneList.get(i).get(1));
         		this.geneOkList.add(this.geneList.get(i));
-            	//System.out.println();
             }
-        	//System.out.println();
         }
     }
     
