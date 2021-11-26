@@ -77,8 +77,10 @@ public class Main {
 						f.doneBarre(1);
 						f.logProgress(nc);
 						
-						if(allreadyDone.contains(nc)) {
-			        		f.log(nc + " deja passé ");
+						String ncRegion = f.lrf + nc;
+						
+						if(allreadyDone.contains(ncRegion)) {
+			        		f.log(ncRegion + " deja passé ");
 			        		continue;
 			        	}
 						
@@ -145,7 +147,7 @@ public class Main {
 							oldHierarchy = hierarchy;
 							f.log("Nouveau gene : " + hierarchy[5]);
 						}
-						doneInSpecie.add(nc);
+						doneInSpecie.add(ncRegion);
 						dS.add(nc);
 
 						// on termine le gene puis stop
