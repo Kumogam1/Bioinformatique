@@ -116,15 +116,15 @@ public class Main
 								
 								if (oldHierarchy != null)
 								{
-									int num = 0;
+									String str = "";
 									//System.out.println("Nombre de séquence : " + g.getGenomeOkList().size());
 									for (List<String> gok : g.getGenomeOkList())
 									{
 										//System.out.println("Exemple séquence : " + gok.get(2) + " " + gok.get(1));
-										String str = "";
+										
 										if (gok.get(2).equals("simple") || gok.get(2).equals("complement"))
 										{
-											str = rf + " "
+											str += rf + " "
 												+ oldHierarchy[oldHierarchy.length - 1] + " "
 												+ nc + " "
 												+ gok.get(1) + "\n"
@@ -161,39 +161,35 @@ public class Main
 													str += "\n";
 											}
 										}
-	
-										String[] oldH2 = Arrays.copyOfRange(oldHierarchy, 0, oldHierarchy.length - 1);
-										
-										String fileName = rf + "_" + oldHierarchy[oldHierarchy.length - 1];
-										
-										for(int i = 0; i < oldH2.length; i++)
-											for(char c : replaceChars)
-												oldH2[i] = oldH2[i].replace(c, '_');
-										
-										for(char c : replaceChars)
-											fileName = fileName.replace(c, '_');
-	
-										String fileSerialize = "./Results/"
-																	+ String.join("/", oldH2) + "/"
-																	+ fileName + "_" 
-																	+ nc;
-	
-										if (num == 0)
-											fileSerialize += ".txt";
-										else
-											fileSerialize += "_" + num + ".txt";
-	
-										File tmp = new File(fileSerialize);
-										tmp.getParentFile().setWritable(true);
-										tmp.getParentFile().mkdirs();
-	
-										BufferedWriter bufres = new BufferedWriter(new FileWriter(fileSerialize));
-										bufres.write(str);
-										bufres.close();
-	
-										num++;
+										str += "\n";
 									}
+									
+									String[] oldH2 = Arrays.copyOfRange(oldHierarchy, 0, oldHierarchy.length - 1);
+									
+									String fileName = rf + "_" + oldHierarchy[oldHierarchy.length - 1];
+									
+									for(int i = 0; i < oldH2.length; i++)
+										for(char c : replaceChars)
+											oldH2[i] = oldH2[i].replace(c, '_');
+									
+									for(char c : replaceChars)
+										fileName = fileName.replace(c, '_');
+
+									String fileSerialize = "./Results/"
+																+ String.join("/", oldH2) + "/"
+																+ fileName + "_" 
+																+ nc + ".txt";
+
+									File tmp = new File(fileSerialize);
+									tmp.getParentFile().setWritable(true);
+									tmp.getParentFile().mkdirs();
+
+									BufferedWriter bufres = new BufferedWriter(new FileWriter(fileSerialize));
+									bufres.write(str);
+									bufres.close();
+									
 								}
+								
 								oldHierarchy = hierarchy;
 								if (g.getGenomeOkList().size() != 0)
 									f.log("Nouveau gene : " + hierarchy[5]);
@@ -218,12 +214,6 @@ public class Main
 								}
 							}
 						}
-						
-						try {
-							doneFileWriter.close();
-						} catch (IOException e) {
-							e.printStackTrace();
-						}
 					}
         		}
 	
@@ -234,6 +224,14 @@ public class Main
 
 			}
 
+		}
+		
+
+		
+		try {
+			doneFileWriter.close();
+		} catch (IOException e) {
+			e.printStackTrace();
 		}
 
 	}

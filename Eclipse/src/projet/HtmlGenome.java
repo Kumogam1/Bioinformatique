@@ -339,7 +339,8 @@ public class HtmlGenome
 	    		if(!isValidBornes(ids, "join", genSize))
 	    			return null;
 	    		
-	            gene = getGeneSeqFromAdn(Integer.parseInt(ids[0])-1, Integer.parseInt(ids[1]), genome, genSizeString);
+	    		gene = getGeneSeqFromAdn(Integer.parseInt(ids[0])-1, Integer.parseInt(ids[1]), genome, genSizeString);
+	            
 	            res = gene.toLowerCase();
 	            
 	    		break;
@@ -486,7 +487,21 @@ public class HtmlGenome
             	res += genome.get(binfTab);
                 binfTab++;
             }
-            res += genome.get(binfTab).substring(0, (bsup) % maxSizeAdn);
+
+            /*
+            System.out.println("binf : " + binf);
+            System.out.println("bsup : " + bsup);
+            System.out.println("binfTab : " + binfTab);
+            System.out.println("bsubTab : " + bsubTab);
+            System.out.println("maxSizeAdn : " + maxSizeAdn);
+            System.out.println("(bsup) % maxSizeAdn : " + (bsup) % maxSizeAdn);
+            System.out.println("genome.size() : " + genome.size());
+            System.out.println("1 : " + genome.get(binfTab));
+            System.out.println("2 : " + genome.get(binfTab).substring(0, (bsup) % maxSizeAdn));
+            */
+            
+            if(binfTab < genome.size())
+            	res += genome.get(binfTab).substring(0, (bsup) % maxSizeAdn);
         }
         return res;
     }

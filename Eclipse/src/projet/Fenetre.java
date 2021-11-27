@@ -594,8 +594,8 @@ public class Fenetre extends JFrame
 	          log("\n");
 	          
 	          log("Cliquer sur Start pour démarrer ou Annuler pour changer votre sélection. \n");
-	    	  //startt = true;
-	    	  //stopp = false;
+	    	  startt = true;
+	    	  stopp = false;
 	      }
 	    });
 	    
