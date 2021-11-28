@@ -155,7 +155,7 @@ public class Fenetre extends JFrame
         jCheckBoxCustomMito_metazoa.setText("Mito_metazoa");
         
         jCheckBoxCustomPhages.setBackground(new java.awt.Color(0, 0, 0));
-        jCheckBoxCustomPhages.setText("Chloroplast");
+        jCheckBoxCustomPhages.setText("Phages");
         
         jCheckBoxCustomPlasmids.setBackground(new java.awt.Color(0, 0, 0));
         jCheckBoxCustomPlasmids.setText("Plasmids");
