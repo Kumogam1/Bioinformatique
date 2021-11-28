@@ -8,6 +8,7 @@ import javax.swing.JProgressBar;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.JTree;
+import javax.swing.SwingConstants;
 import javax.swing.WindowConstants;
 import javax.swing.border.EmptyBorder;
 import javax.swing.text.BadLocationException;
@@ -209,19 +210,32 @@ public class Fenetre extends JFrame
         checkboxPanel.add(jCheckBoxCustomRfAll);
         checkboxPanel.add(jCheckBoxCustomDomAll);
         
-        
-        JButton start = new JButton("Start"); 
-	    start.setSize(10, 10);  
-	    start.setEnabled(true);
+        // BOUTTONS START STOP § // 
+       
+        Icon icon_pause = new ImageIcon(getClass().getResource("/img/icons8-pause-20.png"));
 	    
-	    JButton stop  = new JButton("Stop");
-	    stop.setSize(10, 10); 
-	    stop.setEnabled(false);
+	    Icon icon_start = new ImageIcon(getClass().getResource("/img/icons8-start-20.png"));
+	    
+	    JButton start = new JButton(icon_start); 
+		 
+	    JButton stop  = new JButton(icon_pause);
+ 
+         
+	     
+	    //start.setEnabled(true);
+	    
+	 
+	      
+	    //stop.setEnabled(false);
 	    
 	    
         checkboxPanel.add(start);
         checkboxPanel.add(stop);
-		
+        
+        mainPanel.setLayout(new BoxLayout(mainPanel, BoxLayout.Y_AXIS));
+        
+        // BOUTTONS START STOP § // 
+        
 		// TREE
 		
 		tree = new JTree(root);
@@ -262,23 +276,147 @@ public class Fenetre extends JFrame
 	    });
 		
 	    JScrollPane treeScroll = new JScrollPane(tree);
-	    treeScroll.setPreferredSize(new Dimension(300, 400));
+	    treeScroll.setPreferredSize(new Dimension(300,600));
 		treeScroll.getViewport().getView().setBackground(Color.WHITE);
 		treeScroll.getViewport().getView().setFont(new Font("Arial", Font.CENTER_BASELINE, 12));
+		
+		
+		
+		// PANEL TETE 
+		
+		JPanel paneltete = new JPanel();
+		JPanel paneltete1 = new JPanel();
+		JPanel paneltete2 = new JPanel();
+		
+		
+		paneltete.setBackground(Color.blue);
+		 
+
+       
+        
+        
+        BoxLayout boxlayouttete = new BoxLayout(paneltete, BoxLayout.Y_AXIS);
+        paneltete.setLayout(boxlayouttete);
+        
+        JLabel genome = new  JLabel("GENOME" ,SwingConstants.LEFT);
+        
+        genome.setText("<html><h1>GENOME</h1></html>");
+        genome.setHorizontalTextPosition(JLabel.CENTER);
+        genome.setSize(100, 10);
+        paneltete1.add(genome);
+        
+        
+        paneltete2.add(new JLabel("Statistiques sur les genes de base GenBank " ,SwingConstants.RIGHT ) );
+        paneltete.add(paneltete1);
+        paneltete.add(paneltete2);
+        
+        // PANEL TETE 
+        
+        
+		// PANEL GAUCHE
+        
+		JPanel panel1 = new JPanel();
+		BoxLayout boxlayoutpanel1 = new BoxLayout(panel1, BoxLayout.Y_AXIS);
+	    panel1.setLayout(boxlayoutpanel1);
+	    panel1.setBackground(Color.black);
+      
+            // PANEL FICHIER 
+	        JPanel tt = new JPanel();
+			tt.setBackground(Color.lightGray);
+			tt.add(new JLabel("Arborescence des fichiers "));
+			tt.setPreferredSize(new Dimension(80, 25));
+			
+			// PANEL BOTTONS
+	        JPanel bb = new JPanel();
+			bb.setBackground(Color.white);
+			BoxLayout boxlayoutbb = new BoxLayout(bb, BoxLayout.X_AXIS);
+		    bb.setLayout(boxlayoutbb);
+		    
+			 
+		     Icon loadIconn =  new ImageIcon(new ImageIcon(getClass().getResource("/img/emoji_orange.png")).getImage().getScaledInstance(10, 10,  java.awt.Image.SCALE_SMOOTH));
+	         Icon badIconn =  new ImageIcon(new ImageIcon(getClass().getResource("/img/emoji_red.png")).getImage().getScaledInstance(10, 10,  java.awt.Image.SCALE_SMOOTH));
+	         Icon goodIconn =  new ImageIcon(new ImageIcon(getClass().getResource("/img/emoji_green.png")).getImage().getScaledInstance(10, 10,  java.awt.Image.SCALE_SMOOTH));
+			
+		     
+            JLabel feuGreen = new JLabel();
+            feuGreen.setText("Terminé ");
+            feuGreen.setIcon(goodIconn);
+            
+            JLabel feured = new JLabel();
+            feured.setText("Actualisé  ");
+            feured.setIcon(loadIconn);
+            
+            JLabel feuOrange = new JLabel();
+            feuOrange.setText("Supprimé  ");
+            feuOrange.setIcon(badIconn);
+            
+            bb.add(feuGreen);
+            bb.add(Box.createVerticalStrut(15)); 
+            bb.add(feured);
+            bb.add(Box.createVerticalStrut(15)); 
+            bb.add(feuOrange);
+			
+		// ADD TO PANEL GAUCHE 
+	    panel1.add(Box.createVerticalStrut(5)); 
+		panel1.add(tt);
+		panel1.add(bb);
+		panel1.add(treeScroll);
+		
+		// PANEL GAUCHE
+
+		
+		
+		
+		// PANEL DROIT 
+		JPanel panel2 = new JPanel();
+		panel2.setBackground(Color.black);
+
+        BoxLayout boxlayoutpanel2 = new BoxLayout(panel2, BoxLayout.Y_AXIS);
+        panel2.setLayout(boxlayoutpanel2);
+        
+         
+		
+			// PANEL INFORMATION 
+			
+	        JPanel tt1 = new JPanel();
+	        JLabel info = new JLabel("Informations"); 
+	        info.setForeground(Color.black);
+	        tt1.setBackground(Color.LIGHT_GRAY);
+	        tt1.add(info);
+			
+	        // PANEL MENU
+	        
+	       
+	        JPanel tt4  = new JPanel();
+			JLabel info1 = new JLabel("MenuU"); 
+			tt4.setBackground(Color.LIGHT_GRAY);
+			info1.setForeground(Color.black);
+			tt4.add(info1);
+		
+		// ADD PANEL DROIT 
+		panel2.add(Box.createVerticalStrut(5));
+		panel2.add(tt4);
+		panel2.add(checkboxPanel);
+		panel2.add(Box.createVerticalStrut(10));
+		panel2.add(tt1);
+		panel2.add(textScroll);
+		
+		
+		
+		
+		topPanel.add(panel1);
+		topPanel.add(Box.createHorizontalStrut(20));
+		topPanel.add(panel2);
 	    
-	    topPanel.add(treeScroll);
-	    topPanel.add(Box.createHorizontalStrut(20));
-	    
-	    JPanel rightPanel = new JPanel((new GridLayout(0, 1)));
-	    rightPanel.add(checkboxPanel, "North");
-	    rightPanel.add(textScroll, "South");
-	    topPanel.add(rightPanel);
+	     
 		
 		topPanel.setBackground(Color.BLACK);
 	    topPanel.setBorder(BorderFactory.createEmptyBorder(0, 10, 10, 10)); 
 	    topPanel.setLayout(new BoxLayout(topPanel, BoxLayout.LINE_AXIS));
 	    
+	    mainPanel.add(paneltete);
 	    mainPanel.add(topPanel);
+	 
 	    
 	    /* MIDDLE PANEL */
 	    
@@ -745,4 +883,3 @@ public class Fenetre extends JFrame
 			});		
 	}
 }
-
