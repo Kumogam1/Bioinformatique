@@ -26,7 +26,7 @@ public class Main
 		f.log("Selectionner une ou plusieurs r\u00e9gions fonctionnelles, puis cliquer sur Start pour\nd\u00e9marrer.\n ");
 
 		// String[] ids = new String[] {"Viruses", "Archaea", "Bacteria",
-		// "Mito_metazoa", "Phages", "Plasmids", "Viroids","Samples", "dsDNA_Viruses",
+		// "Mito_metazoa", "Phages", "Plasmids", "Viroids", "Samples", "dsDNA_Viruses",
 		// "Eukaryota"};
 		
 		ArrayList<String> done = new ArrayList<String>();
