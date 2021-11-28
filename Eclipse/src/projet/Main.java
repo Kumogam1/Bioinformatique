@@ -26,7 +26,7 @@ public class Main
 		f.log("Selectionner une ou plusieurs régions fonctionnelles, puis cliquer sur Start pour\ndémarrer.\n ");
 
 		// String[] ids = new String[] {"Viruses", "Archaea", "Bacteria",
-		// "Mito_metazoa", "Phages", "Plasmids", "Viroids","Samples", "dsDNA_Viruses",
+		// "Mito_metazoa", "Phages", "Plasmids", "Viroids", "Samples", "dsDNA_Viruses",
 		// "Eukaryota"};
 		
 		ArrayList<String> done = new ArrayList<String>();
@@ -61,7 +61,7 @@ public class Main
 		while (f.stopp1)
 		{
 			System.out.println("");
-			while (f.startt)
+			if (f.startt)
 			{
 				Hashtable<String, ArrayList<String>> ncs = getNcs(f.ldm);
 				int nbNcs = 0;
