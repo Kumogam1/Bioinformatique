@@ -178,13 +178,6 @@ public class Fenetre extends JFrame
         JLabel checkboxLabelRF = new JLabel("Régions fonctionnelles :");
         JLabel checkboxLabelDomaine = new JLabel("Domaines :");
         
-        JButton validationButton = new JButton("Valider"); 
-        validationButton.setSize(10, 10);
-        
-        JButton annulationButton = new JButton("Annuler"); 
-        annulationButton.setSize(10, 10);
-        annulationButton.setEnabled(false);
-        
         JPanel checkboxPanel = new JPanel(); 
         
         checkboxPanel.setLayout(new GridLayout(0, 2));
@@ -216,8 +209,18 @@ public class Fenetre extends JFrame
         checkboxPanel.add(jCheckBoxCustomRfAll);
         checkboxPanel.add(jCheckBoxCustomDomAll);
         
-        checkboxPanel.add(validationButton);
-        checkboxPanel.add(annulationButton);
+        
+        JButton start = new JButton("Start"); 
+	    start.setSize(10, 10);  
+	    start.setEnabled(true);
+	    
+	    JButton stop  = new JButton("Stop");
+	    stop.setSize(10, 10); 
+	    stop.setEnabled(false);
+	    
+	    
+        checkboxPanel.add(start);
+        checkboxPanel.add(stop);
 		
 		// TREE
 		
@@ -285,14 +288,6 @@ public class Fenetre extends JFrame
 	    JPanel middlePanel = new JPanel(new GridBagLayout());
 	    GridBagConstraints cst = new GridBagConstraints();
 	    
-	    JButton start = new JButton("Start"); 
-	    start.setSize(10, 10);  
-	    start.setEnabled(false);
-	    
-	    JButton stop  = new JButton("Stop");
-	    stop.setSize(10, 10); 
-	    stop.setEnabled(false);
-	    
 	 
         cst.fill = GridBagConstraints.HORIZONTAL;
         cst.gridx = 0;
@@ -304,13 +299,13 @@ public class Fenetre extends JFrame
 		cst.gridwidth = 1;
 		cst.gridx = 0;
 		cst.gridy = 1;
-		middlePanel.add(start,cst);
+		//middlePanel.add(start,cst);
 	    
 		cst.fill = GridBagConstraints.HORIZONTAL;
 		cst.gridwidth = 1;
 		cst.gridx = 0;
 		cst.gridy = 2;
-		middlePanel.add(stop,cst);
+		//middlePanel.add(stop,cst);
 	   
 	 
 	    mainPanel.add(middlePanel);
@@ -348,9 +343,62 @@ public class Fenetre extends JFrame
 	    {
 	      public void actionPerformed(ActionEvent e)
 	      {
+	    	  start.setEnabled(false);
+	    	  jCheckBoxCustomCDS.setEnabled(false);
+	          jCheckBoxCustomCentromere.setEnabled(false);
+	          jCheckBoxCustomIntron.setEnabled(false);
+	          jCheckBoxCustomMobileElem.setEnabled(false);
+	          jCheckBoxCustomNcRna.setEnabled(false);
+	          jCheckBoxCustomRRna.setEnabled(false);
+	          jCheckBoxCustomTelomere.setEnabled(false);
+	          jCheckBoxCustomTRna.setEnabled(false);
+	          jCheckBoxCustom3Utr.setEnabled(false);
+	          jCheckBoxCustom5Utr.setEnabled(false);
+	          jCheckBoxCustomRfAll.setEnabled(false);
+	          
+	          jCheckBoxCustomViruses.setEnabled(false);
+    		  jCheckBoxCustomArchaea.setEnabled(false);
+    		  jCheckBoxCustomBacteria.setEnabled(false);
+    		  jCheckBoxCustomMito_metazoa.setEnabled(false);
+    		  jCheckBoxCustomPhages.setEnabled(false);
+    		  jCheckBoxCustomPlasmids.setEnabled(false);
+    		  jCheckBoxCustomViroids.setEnabled(false);
+    		  jCheckBoxCustomSamples.setEnabled(false);
+    		  jCheckBoxCustomdsDNA_Viruses.setEnabled(false);
+    		  jCheckBoxCustomEukaryota.setEnabled(false);
+    		  jCheckBoxCustomDomAll.setEnabled(false);
+	    	  
+	          log("Régions fonctionnelles sélectionnées :");
+	          
+	          if(jCheckBoxCustomCDS.isSelected()) {log(" CDS ");}
+	          if(jCheckBoxCustomCentromere.isSelected()) {log(" Centromère ");}
+	          if(jCheckBoxCustomIntron.isSelected()) {log(" Intron ");}
+	          if(jCheckBoxCustomMobileElem.isSelected()) {log(" mobile_element ");}
+	          if(jCheckBoxCustomNcRna.isSelected()) {log(" ncRNA ");}
+	          if(jCheckBoxCustomRRna.isSelected()) {log(" rRNA ");}
+	          if(jCheckBoxCustomTelomere.isSelected()) {log(" Telomere ");}
+	          if(jCheckBoxCustomTRna.isSelected()) {log(" tRNA ");}
+	          if(jCheckBoxCustom3Utr.isSelected()) {log(" 3'UTR ");}
+	          if(jCheckBoxCustom5Utr.isSelected()) {log(" 5'UTR ");}
+	          log("\n");
+	          
+	          log("Domaines sélectionnés :");
+	          
+	          if(jCheckBoxCustomViruses.isSelected()) {log(" Viruses ");}
+	          if(jCheckBoxCustomArchaea.isSelected()) {log(" Archaea ");}
+	          if(jCheckBoxCustomBacteria.isSelected()) {log(" Bacteria ");}
+	          if(jCheckBoxCustomMito_metazoa.isSelected()) {log(" Mito_metazoa ");}
+	          if(jCheckBoxCustomPhages.isSelected()) {log(" Phages ");}
+	          if(jCheckBoxCustomPlasmids.isSelected()) {log(" Plasmids ");}
+	          if(jCheckBoxCustomViroids.isSelected()) {log(" Viroids ");}
+	          if(jCheckBoxCustomSamples.isSelected()) {log(" Samples ");}
+	          if(jCheckBoxCustomdsDNA_Viruses.isSelected()) {log(" DNA_Viruses ");}
+	          if(jCheckBoxCustomEukaryota.isSelected()) {log(" Eukaryota ");}
+	          log("\n");
+	          
+	          
 	    	  log("Démarrage du parsing.\n");
 	    	  stop.setEnabled(true);
-	    	  start.setEnabled(false);
 	    	  startt = true;
 	    	  stopp = false;
 	    	   
@@ -362,8 +410,36 @@ public class Fenetre extends JFrame
 	    {
 	      public void actionPerformed(ActionEvent e)
 	      {
-	    	  start.setEnabled(true);
 	    	  stop.setEnabled(false);
+	    	  
+	    	  jCheckBoxCustomViruses.setEnabled(true);
+    		  jCheckBoxCustomArchaea.setEnabled(true);
+    		  jCheckBoxCustomBacteria.setEnabled(true);
+    		  jCheckBoxCustomMito_metazoa.setEnabled(true);
+    		  jCheckBoxCustomPhages.setEnabled(true);
+    		  jCheckBoxCustomPlasmids.setEnabled(true);
+    		  jCheckBoxCustomViroids.setEnabled(true);
+    		  jCheckBoxCustomSamples.setEnabled(true);
+    		  jCheckBoxCustomdsDNA_Viruses.setEnabled(true);
+    		  jCheckBoxCustomEukaryota.setEnabled(true);
+    		  jCheckBoxCustomDomAll.setEnabled(true);
+    		  
+    		  jCheckBoxCustomDomAll.setSelected(false);
+    		  
+    		  jCheckBoxCustomCDS.setEnabled(true);
+	          jCheckBoxCustomCentromere.setEnabled(true);
+	          jCheckBoxCustomIntron.setEnabled(true);
+	          jCheckBoxCustomMobileElem.setEnabled(true);
+	          jCheckBoxCustomNcRna.setEnabled(true);
+	          jCheckBoxCustomRRna.setEnabled(true);
+	          jCheckBoxCustomTelomere.setEnabled(true);
+	          jCheckBoxCustomTRna.setEnabled(true);
+	          jCheckBoxCustom3Utr.setEnabled(true);
+	          jCheckBoxCustom5Utr.setEnabled(true);
+	          jCheckBoxCustomRfAll.setEnabled(true);
+	          
+	          jCheckBoxCustomRfAll.setSelected(false);
+	    	  start.setEnabled(true);
 	    	  log("Interruption du parsing. \n");
 	    	  stopp = true;
 	    	   
@@ -468,176 +544,6 @@ public class Fenetre extends JFrame
 	    		  jCheckBoxCustomEukaryota.setEnabled(true);
 	    		  
 	    	  }
-	      }
-	    });
-	    
-	    // VALIDATION
-	    
-	    validationButton.addActionListener(new ActionListener()
-	    {
-	      public void actionPerformed(ActionEvent e)
-	      {
-	    	  start.setEnabled(true);
-	    	  annulationButton.setEnabled(true);
-	    	  
-	    	  validationButton.setEnabled(false);
-	    	  jCheckBoxCustomCDS.setEnabled(false);
-	          jCheckBoxCustomCentromere.setEnabled(false);
-	          jCheckBoxCustomIntron.setEnabled(false);
-	          jCheckBoxCustomMobileElem.setEnabled(false);
-	          jCheckBoxCustomNcRna.setEnabled(false);
-	          jCheckBoxCustomRRna.setEnabled(false);
-	          jCheckBoxCustomTelomere.setEnabled(false);
-	          jCheckBoxCustomTRna.setEnabled(false);
-	          jCheckBoxCustom3Utr.setEnabled(false);
-	          jCheckBoxCustom5Utr.setEnabled(false);
-	          jCheckBoxCustomRfAll.setEnabled(false);
-	          
-	          jCheckBoxCustomViruses.setEnabled(false);
-    		  jCheckBoxCustomArchaea.setEnabled(false);
-    		  jCheckBoxCustomBacteria.setEnabled(false);
-    		  jCheckBoxCustomMito_metazoa.setEnabled(false);
-    		  jCheckBoxCustomPhages.setEnabled(false);
-    		  jCheckBoxCustomPlasmids.setEnabled(false);
-    		  jCheckBoxCustomViroids.setEnabled(false);
-    		  jCheckBoxCustomSamples.setEnabled(false);
-    		  jCheckBoxCustomdsDNA_Viruses.setEnabled(false);
-    		  jCheckBoxCustomEukaryota.setEnabled(false);
-    		  jCheckBoxCustomDomAll.setEnabled(false);
-	    	  
-	          log("Regions fonctionnelles selectionnees :");
-	          
-	          if(jCheckBoxCustomCDS.isSelected()) {
-	        	  lrf.add("CDS");
-	        	  log("CDS");
-	          }
-	          if(jCheckBoxCustomCentromere.isSelected()) {
-	        	  lrf.add("Centromere");
-	        	  log("Centromere");
-	          }
-	          if(jCheckBoxCustomIntron.isSelected()) {
-	        	  lrf.add("Intron");
-	        	  log("Intron");
-	          }
-	          if(jCheckBoxCustomMobileElem.isSelected()) {
-	        	  lrf.add("mobile_element");
-	        	  log("mobile_element");
-	          }
-	          if(jCheckBoxCustomNcRna.isSelected()) {
-	        	  lrf.add("ncRNA");
-	        	  log("ncRNA");
-	          }
-	          if(jCheckBoxCustomRRna.isSelected()) {
-	        	  lrf.add("rRNA");
-	        	  log("rRNA");
-	          }
-	          if(jCheckBoxCustomTelomere.isSelected()) {
-	        	  lrf.add("Telomere");
-	        	  log("Telomere");
-	          }
-	          if(jCheckBoxCustomTRna.isSelected()) {
-	        	  lrf.add("tRNA");
-	        	  log("tRNA");
-	          }
-	          if(jCheckBoxCustom3Utr.isSelected()) {
-	        	  lrf.add("3'UTR");
-	        	  log("3'UTR");
-	          }
-	          if(jCheckBoxCustom5Utr.isSelected()) {
-	        	  lrf.add("5'UTR");
-	        	  log("5'UTR");
-	          }
-	          log("\n");
-	          
-	          log("Domaines selectionnes :");
-	          
-	          if(jCheckBoxCustomViruses.isSelected()) {
-	        	  ldm.add("Viruses");
-	        	  log("Viruses");
-	          }
-	          if(jCheckBoxCustomArchaea.isSelected()) {
-	        	  ldm.add("Archaea");
-	        	  log("Archaea");
-	          }
-	          if(jCheckBoxCustomBacteria.isSelected()) {
-	        	  ldm.add("Bacteria");
-	        	  log("Bacteria");
-	          }
-	          if(jCheckBoxCustomMito_metazoa.isSelected()) {
-	        	  ldm.add("Mito_metazoa");
-	        	  log("Mito_metazoa");
-	          }
-	          if(jCheckBoxCustomPhages.isSelected()) {
-	        	  ldm.add("Phages");
-	        	  log("Phages");
-	          }
-	          if(jCheckBoxCustomPlasmids.isSelected()) {
-	        	  ldm.add("Plasmids");
-	        	  log("Plasmids");
-	          }
-	          if(jCheckBoxCustomViroids.isSelected()) {
-	        	  ldm.add("Viroids");
-	        	  log("Viroids");
-	          }
-	          if(jCheckBoxCustomSamples.isSelected()) {
-	        	  ldm.add("Samples");
-	        	  log("Samples");
-	          }
-	          if(jCheckBoxCustomdsDNA_Viruses.isSelected()) {
-	        	  ldm.add("dsDNA_Viruses");
-	        	  log("dsDNA_Viruses");
-	          }
-	          if(jCheckBoxCustomEukaryota.isSelected()) {
-	        	  ldm.add("Eukaryota");
-	        	  log("Eukaryota");
-	          }
-	          log("\n");
-	          
-	          log("Cliquer sur Start pour démarrer ou Annuler pour changer votre sélection. \n");
-	    	  //startt = true;
-	    	  //stopp = false;
-	      }
-	    });
-	    
-	    annulationButton.addActionListener(new ActionListener()
-	    {
-	      public void actionPerformed(ActionEvent e)
-	      {
-	    	  start.setEnabled(false);
-	    	  annulationButton.setEnabled(false);
-	    	  validationButton.setEnabled(true);
-	    	  log("Annulation de la sélection. \n");
-	    	  
-	    	  jCheckBoxCustomViruses.setEnabled(true);
-    		  jCheckBoxCustomArchaea.setEnabled(true);
-    		  jCheckBoxCustomBacteria.setEnabled(true);
-    		  jCheckBoxCustomMito_metazoa.setEnabled(true);
-    		  jCheckBoxCustomPhages.setEnabled(true);
-    		  jCheckBoxCustomPlasmids.setEnabled(true);
-    		  jCheckBoxCustomViroids.setEnabled(true);
-    		  jCheckBoxCustomSamples.setEnabled(true);
-    		  jCheckBoxCustomdsDNA_Viruses.setEnabled(true);
-    		  jCheckBoxCustomEukaryota.setEnabled(true);
-    		  jCheckBoxCustomDomAll.setEnabled(true);
-    		  
-    		  jCheckBoxCustomDomAll.setSelected(false);
-    		  
-    		  jCheckBoxCustomCDS.setEnabled(true);
-	          jCheckBoxCustomCentromere.setEnabled(true);
-	          jCheckBoxCustomIntron.setEnabled(true);
-	          jCheckBoxCustomMobileElem.setEnabled(true);
-	          jCheckBoxCustomNcRna.setEnabled(true);
-	          jCheckBoxCustomRRna.setEnabled(true);
-	          jCheckBoxCustomTelomere.setEnabled(true);
-	          jCheckBoxCustomTRna.setEnabled(true);
-	          jCheckBoxCustom3Utr.setEnabled(true);
-	          jCheckBoxCustom5Utr.setEnabled(true);
-	          jCheckBoxCustomRfAll.setEnabled(true);
-	          
-	          jCheckBoxCustomRfAll.setSelected(false);
-	    	  
-	          lrf.clear();
-	          ldm.clear();
 	      }
 	    });
 	    
