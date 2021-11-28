@@ -207,18 +207,18 @@ public class Main
 							dS.add(nc);
 	
 							// on termine le gene puis stop
-							if (f.stopp) {
-								while (f.stopp) {
-									// System.out.println("STOP ");
-								}
-							}
+							if (f.stopp)
+								break;
 						}
+						if (f.stopp)
+							break;
 					}
+					if (f.stopp)
+						break;
         		}
 	
 				// A VERIFIER
 				f.startt = false;
-				f.stopp1 = false;
 				f.log("Fin \n");
 
 			}
@@ -250,7 +250,7 @@ public class Main
 
 		for (String id : ids) {
 			URL url = new URL("ftp://ftp.ncbi.nlm.nih.gov/genomes/GENOME_REPORTS/IDS/" + id + ".ids");
-			System.out.println(id);
+			//System.out.println(id);
 			// ArrayList<String> listToAdd = ncs.get(id);
 			ArrayList<String> listToAdd = new ArrayList<String>();
 

@@ -505,7 +505,7 @@ public class Fenetre extends JFrame
 	    	  lrf.clear();
 	    	  log("Interruption du parsing. \n");
 	    	  stopp = true;
-	    	   
+	    	  logClear();
 	      }
 	    });
 	    
@@ -671,6 +671,12 @@ public class Fenetre extends JFrame
 				e.printStackTrace();
 			}
 		}
+	}
+	
+	public void logClear()
+	{
+		this.textLog.selectAll();
+		this.textLog.replaceSelection("");
 	}
 
 	public void logProgress(String prog)
