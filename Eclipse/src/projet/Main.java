@@ -23,7 +23,7 @@ public class Main
 		Fenetre f = new Fenetre();
 
 		f.log("Bienvenue dans GenBanks.\n ");
-		f.log("Selectionner une ou plusieurs régions fonctionnelles, puis cliquer sur Start pour\ndémarrer.\n ");
+		f.log("Selectionner une ou plusieurs r\u00e9gions fonctionnelles, puis cliquer sur Start pour\nd\u00e9marrer.\n ");
 
 		// String[] ids = new String[] {"Viruses", "Archaea", "Bacteria",
 		// "Mito_metazoa", "Phages", "Plasmids", "Viroids","Samples", "dsDNA_Viruses",
@@ -61,7 +61,7 @@ public class Main
 		while (f.stopp1)
 		{
 			System.out.println("");
-			while (f.startt)
+			if (f.startt)
 			{
 				Hashtable<String, ArrayList<String>> ncs = getNcs(f.ldm);
 				int nbNcs = 0;
@@ -92,10 +92,10 @@ public class Main
 							f.doneBarre(1);
 							f.logProgress(nc);
 							
-							String ncRegion = f.lrf + nc;
+							String ncRegion = rf + "_" + nc;
 						
 							if(allreadyDone.contains(ncRegion)) {
-								f.log(ncRegion + " deja passé ");
+								f.log(ncRegion + " deja pass\u00e9 ");
 								continue;
 							}
 							
@@ -133,7 +133,6 @@ public class Main
 										else
 										{
 											//System.out.println(nc + " " + oldHierarchy[oldHierarchy.length - 1] + " " + gok.get(1) + " " + num);
-											
 											
 											str += rf + " "
 												+ oldHierarchy[oldHierarchy.length - 1] + " "
