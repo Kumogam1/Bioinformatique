@@ -635,7 +635,9 @@ public class Fenetre extends JFrame
 	          jCheckBoxCustomRfAll.setEnabled(true);
 	          
 	          jCheckBoxCustomRfAll.setSelected(false);
-	    	   
+	    	  
+	          lrf.clear();
+	          ldm.clear();
 	      }
 	    });
 	    
