@@ -14,6 +14,7 @@ public class JCheckBoxCustom extends JCheckBox {
         setCursor(new Cursor(Cursor.HAND_CURSOR));
         setOpaque(false);
         setBackground(new Color(69, 124, 235));
+        setSize(getPreferredSize());
     }
 
     @Override

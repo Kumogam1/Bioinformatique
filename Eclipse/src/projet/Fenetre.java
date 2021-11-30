@@ -245,8 +245,7 @@ public class Fenetre extends JFrame
 			 */
 			private static final long serialVersionUID = -7857980626261996475L;
 			
-			private Icon loadIcon =  new ImageIcon(new ImageIcon(getClass().getResource("/img/emoji_orange.png")).getImage().getScaledInstance(10, 10,  java.awt.Image.SCALE_SMOOTH));
-	        private Icon badIcon =  new ImageIcon(new ImageIcon(getClass().getResource("/img/emoji_red.png")).getImage().getScaledInstance(10, 10,  java.awt.Image.SCALE_SMOOTH));
+			private Icon badIcon =  new ImageIcon(new ImageIcon(getClass().getResource("/img/emoji_red.png")).getImage().getScaledInstance(10, 10,  java.awt.Image.SCALE_SMOOTH));
 	        private Icon goodIcon =  new ImageIcon(new ImageIcon(getClass().getResource("/img/emoji_green.png")).getImage().getScaledInstance(10, 10,  java.awt.Image.SCALE_SMOOTH));
 	       	        
 	        @Override
@@ -303,12 +302,12 @@ public class Fenetre extends JFrame
         genome.setText("<html><h1>GENOME</h1></html>");
         genome.setHorizontalTextPosition(JLabel.CENTER);
         genome.setSize(100, 10);
-        paneltete1.add(genome);
+        //paneltete1.add(genome);
         
         
-        paneltete2.add(new JLabel("Statistiques sur les genes de base GenBank " ,SwingConstants.RIGHT ) );
+        //paneltete2.add(new JLabel("Statistiques sur les genes de base GenBank " ,SwingConstants.RIGHT ) );
         paneltete.add(paneltete1);
-        paneltete.add(paneltete2);
+        //paneltete.add(paneltete2);
         
         // PANEL TETE 
         
@@ -333,21 +332,21 @@ public class Fenetre extends JFrame
 		    bb.setLayout(boxlayoutbb);
 		    
 			 
-		     Icon loadIconn =  new ImageIcon(new ImageIcon(getClass().getResource("/img/emoji_orange.png")).getImage().getScaledInstance(10, 10,  java.awt.Image.SCALE_SMOOTH));
-	         Icon badIconn =  new ImageIcon(new ImageIcon(getClass().getResource("/img/emoji_red.png")).getImage().getScaledInstance(10, 10,  java.awt.Image.SCALE_SMOOTH));
-	         Icon goodIconn =  new ImageIcon(new ImageIcon(getClass().getResource("/img/emoji_green.png")).getImage().getScaledInstance(10, 10,  java.awt.Image.SCALE_SMOOTH));
+			Icon loadIconn =  new ImageIcon(new ImageIcon(getClass().getResource("/img/emoji_orange.png")).getImage().getScaledInstance(10, 10,  java.awt.Image.SCALE_SMOOTH));
+			Icon badIconn =  new ImageIcon(new ImageIcon(getClass().getResource("/img/emoji_red.png")).getImage().getScaledInstance(10, 10,  java.awt.Image.SCALE_SMOOTH));
+			Icon goodIconn =  new ImageIcon(new ImageIcon(getClass().getResource("/img/emoji_green.png")).getImage().getScaledInstance(10, 10,  java.awt.Image.SCALE_SMOOTH));
 			
 		     
             JLabel feuGreen = new JLabel();
-            feuGreen.setText("Terminé ");
+            feuGreen.setText("Termin\u00e9");
             feuGreen.setIcon(goodIconn);
             
             JLabel feured = new JLabel();
-            feured.setText("Actualisé  ");
+            feured.setText("Actualis\u00e9");
             feured.setIcon(loadIconn);
             
             JLabel feuOrange = new JLabel();
-            feuOrange.setText("Supprimé  ");
+            feuOrange.setText("Supprim\u00e9");
             feuOrange.setIcon(badIconn);
             
             bb.add(feuGreen);

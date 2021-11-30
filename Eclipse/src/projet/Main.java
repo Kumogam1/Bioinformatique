@@ -70,27 +70,40 @@ public class Main
 					nbNcs += ncs.get(dm).size();
 				f.initBarre(nbNcs);
 				
-				for(String rf : f.lrf)
+				//for(String rf : f.lrf)
+				for (String dm : f.ldm)
         		{
-					System.out.println(rf);
-					String joinName = "Exon";
-        			if(rf.equals("Intron")) { joinName = "Intron"; }
+					//System.out.println(rf);
+					//String joinName = "Exon";
+        			//if(rf.equals("Intron")) { joinName = "Intron"; }
         			
-					for (String dm : f.ldm)
+        			System.out.println(dm);
+					ArrayList<String> nbId = ncs.get(dm);
+        			
+					//for (String dm : f.ldm)
+					//for (String rf : f.lrf)
+					for (String nc : nbId)
 					{
-						System.out.println(dm);
-						ArrayList<String> nbId = ncs.get(dm);
-						// nbId = new ArrayList<>(Arrays.asList("NC_014649", "NC_012932"));
+						//System.out.println(dm);
+						//ArrayList<String> nbId = ncs.get(dm);
+						
+						//System.out.println(rf);
+						//String joinName = "Exon";
+	        			//if(rf.equals("Intron")) { joinName = "Intron"; }
+	        			
+	        			f.doneBarre(1);
+						f.logProgress(nc);
 	
-						/*
-						 * if (id == "Eukaryota") { h.addAll(nbId); nbId = (ArrayList<String>) h; }
-						 */
-	
-						for (String nc : nbId)
+						//for (String nc : nbId)
+						for (String rf : f.lrf)
 						{
 	
 							f.doneBarre(1);
 							f.logProgress(nc);
+							
+							System.out.println(rf);
+							String joinName = "Exon";
+		        			if(rf.equals("Intron")) { joinName = "Intron"; }
 							
 							String ncRegion = rf + "_" + nc;
 						
@@ -178,6 +191,9 @@ public class Main
 																+ String.join("/", oldH2) + "/"
 																+ fileName + "_" 
 																+ nc + ".txt";
+									
+									if (rf != "CDS")
+										System.out.println(fileSerialize);
 
 									File tmp = new File(fileSerialize);
 									tmp.getParentFile().setWritable(true);
