@@ -387,7 +387,7 @@ public class Fenetre extends JFrame
 	        
 	       
 	        JPanel tt4  = new JPanel();
-			JLabel info1 = new JLabel("MenuU"); 
+			JLabel info1 = new JLabel("Menu"); 
 			tt4.setBackground(Color.LIGHT_GRAY);
 			info1.setForeground(Color.black);
 			tt4.add(info1);
@@ -642,7 +642,6 @@ public class Fenetre extends JFrame
 	    	  lrf.clear();
 	    	  log("Interruption du parsing. \n");
 	    	  stopp = true;
-	    	  logClear();
 	      }
 	    });
 	    
@@ -808,12 +807,6 @@ public class Fenetre extends JFrame
 				e.printStackTrace();
 			}
 		}
-	}
-	
-	public void logClear()
-	{
-		this.textLog.selectAll();
-		this.textLog.replaceSelection("");
 	}
 
 	public void logProgress(String prog)

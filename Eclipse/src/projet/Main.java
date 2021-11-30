@@ -70,38 +70,19 @@ public class Main
 					nbNcs += ncs.get(dm).size();
 				f.initBarre(nbNcs);
 				
-				//for(String rf : f.lrf)
 				for (String dm : f.ldm)
-        		{
-					//System.out.println(rf);
-					//String joinName = "Exon";
-        			//if(rf.equals("Intron")) { joinName = "Intron"; }
-        			
-        			System.out.println(dm);
+        		{					
 					ArrayList<String> nbId = ncs.get(dm);
         			
-					//for (String dm : f.ldm)
-					//for (String rf : f.lrf)
 					for (String nc : nbId)
 					{
-						//System.out.println(dm);
-						//ArrayList<String> nbId = ncs.get(dm);
-						
-						//System.out.println(rf);
-						//String joinName = "Exon";
-	        			//if(rf.equals("Intron")) { joinName = "Intron"; }
-	        			
 	        			f.doneBarre(1);
 						f.logProgress(nc);
 	
-						//for (String nc : nbId)
 						for (String rf : f.lrf)
 						{
-	
 							f.doneBarre(1);
 							f.logProgress(nc);
-							
-							System.out.println(rf);
 							String joinName = "Exon";
 		        			if(rf.equals("Intron")) { joinName = "Intron"; }
 							
@@ -130,11 +111,8 @@ public class Main
 								if (oldHierarchy != null)
 								{
 									String str = "";
-									//System.out.println("Nombre de séquence : " + g.getGenomeOkList().size());
 									for (List<String> gok : g.getGenomeOkList())
 									{
-										//System.out.println("Exemple séquence : " + gok.get(2) + " " + gok.get(1));
-										
 										if (gok.get(2).equals("simple") || gok.get(2).equals("complement"))
 										{
 											str += rf + " "
@@ -145,8 +123,6 @@ public class Main
 										}
 										else
 										{
-											//System.out.println(nc + " " + oldHierarchy[oldHierarchy.length - 1] + " " + gok.get(1) + " " + num);
-											
 											str += rf + " "
 												+ oldHierarchy[oldHierarchy.length - 1] + " "
 												+ nc + " "
@@ -191,9 +167,6 @@ public class Main
 																+ String.join("/", oldH2) + "/"
 																+ fileName + "_" 
 																+ nc + ".txt";
-									
-									if (rf != "CDS")
-										System.out.println(fileSerialize);
 
 									File tmp = new File(fileSerialize);
 									tmp.getParentFile().setWritable(true);
@@ -266,8 +239,6 @@ public class Main
 
 		for (String id : ids) {
 			URL url = new URL("ftp://ftp.ncbi.nlm.nih.gov/genomes/GENOME_REPORTS/IDS/" + id + ".ids");
-			//System.out.println(id);
-			// ArrayList<String> listToAdd = ncs.get(id);
 			ArrayList<String> listToAdd = new ArrayList<String>();
 
 			BufferedReader reader = new BufferedReader(new InputStreamReader(url.openStream()));
