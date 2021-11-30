@@ -116,7 +116,7 @@ public class Main
 										if (gok.get(2).equals("simple") || gok.get(2).equals("complement"))
 										{
 											str += rf + " "
-												+ oldHierarchy[oldHierarchy.length - 1] + " "
+												+ hierarchy[hierarchy.length - 1] + " "
 												+ nc + " "
 												+ gok.get(1) + "\n"
 												+ gok.get(0).toUpperCase();
@@ -124,7 +124,7 @@ public class Main
 										else
 										{
 											str += rf + " "
-												+ oldHierarchy[oldHierarchy.length - 1] + " "
+												+ hierarchy[hierarchy.length - 1] + " "
 												+ nc + " "
 												+ gok.get(1) + "\n"
 												+ gok.get(0).replace(";", "").toUpperCase() + "\n";
@@ -138,7 +138,7 @@ public class Main
 											for (int num_seq = 0; num_seq < seqs.length; num_seq++)
 											{
 												str += rf + " "
-													+ oldHierarchy[oldHierarchy.length - 1] + " "
+													+ hierarchy[hierarchy.length - 1] + " "
 													+ nc + " "
 													+ type + " "
 													+ joinName + " "
@@ -152,29 +152,33 @@ public class Main
 										str += "\n";
 									}
 									
-									String[] oldH2 = Arrays.copyOfRange(oldHierarchy, 0, oldHierarchy.length - 1);
-									
-									String fileName = rf + "_" + oldHierarchy[oldHierarchy.length - 1];
-									
-									for(int i = 0; i < oldH2.length; i++)
+									if(g.getGenomeOkList().size() != 0)
+									{
+										
+										String[] oldH2 = Arrays.copyOfRange(hierarchy, 0, hierarchy.length - 1);
+										
+										String fileName = rf + "_" + hierarchy[hierarchy.length - 1];
+										
+										for(int i = 0; i < oldH2.length; i++)
+											for(char c : replaceChars)
+												oldH2[i] = oldH2[i].replace(c, '_');
+										
 										for(char c : replaceChars)
-											oldH2[i] = oldH2[i].replace(c, '_');
-									
-									for(char c : replaceChars)
-										fileName = fileName.replace(c, '_');
-
-									String fileSerialize = "./Results/"
-																+ String.join("/", oldH2) + "/"
-																+ fileName + "_" 
-																+ nc + ".txt";
-
-									File tmp = new File(fileSerialize);
-									tmp.getParentFile().setWritable(true);
-									tmp.getParentFile().mkdirs();
-
-									BufferedWriter bufres = new BufferedWriter(new FileWriter(fileSerialize));
-									bufres.write(str);
-									bufres.close();
+											fileName = fileName.replace(c, '_');
+	
+										String fileSerialize = "./Results/"
+																	+ String.join("/", oldH2) + "/"
+																	+ fileName + "_" 
+																	+ nc + ".txt";
+	
+										File tmp = new File(fileSerialize);
+										tmp.getParentFile().setWritable(true);
+										tmp.getParentFile().mkdirs();
+	
+										BufferedWriter bufres = new BufferedWriter(new FileWriter(fileSerialize));
+										bufres.write(str);
+										bufres.close();
+									}
 									
 								}
 								
