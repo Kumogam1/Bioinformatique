@@ -3,7 +3,9 @@ package projet;
 import java.io.*;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -174,18 +176,34 @@ public class HtmlGenome
      * @return
      * @throws IOException
      */
-    public static ArrayList<String> getSeq(String geneID, ArrayList<String> genome, int genSize, int genSizeString) throws IOException
+    public static ArrayList<List<String>> getSeq(String geneID, ArrayList<String> genome, int genSize, int genSizeString, String rf) throws IOException
     {
-    	ArrayList<String> res = new ArrayList<String>();
+    	ArrayList<List<String>> res = new ArrayList<List<String>>();
         
         URL url = new URL("https://eutils.ncbi.nlm.nih.gov/entrez/eutils/efetch.fcgi?db=nuccore&id=" + geneID + "&rettype=gbwithparts&retmode=text");
-      
-        Pattern pCDS = Pattern.compile("CDS\\s+((\\d+\\.\\.\\d+)|(join)|(complement))");
+
+        Map<String, String> mapRF = new HashMap<String, String>();
+        mapRF.put("CDS", "CDS");
+        mapRF.put("Centromere", "centromere");
+        mapRF.put("Intron", "intron");
+        mapRF.put("mobile_element", "mobile_element");
+        mapRF.put("ncRNA", "ncRNA");
+        mapRF.put("rRNA", "rRNA");
+        mapRF.put("Telomere", "telomere");
+        mapRF.put("tRNA", "tRNA");
+        mapRF.put("3'UTR", "3'UTR");
+        mapRF.put("5'UTR", "5'UTR");
+        
+        Pattern pCDS = Pattern.compile(mapRF.get(rf) + "\\s+((\\d+\\.\\.\\d+)|(join)|(complement))");
+        
         Pattern pGene = Pattern.compile(".*=.*");
-        Pattern pNull = Pattern.compile("CDS\\s+(\\d+\\.\\.\\d+)");
-        Pattern pComplement = Pattern.compile("CDS\\s+complement\\(((\\d+\\.\\.\\d+,)*\\d+\\.\\.\\d+)\\)");
-        Pattern pJoin = Pattern.compile("CDS\\s+join\\(((\\d+\\.\\.\\d+,)+\\d+\\.\\.\\d+)\\)");
-        Pattern pCompJoin = Pattern.compile("CDS\\s+complement\\(join\\(((\\d+\\.\\.\\d+,)+\\d+\\.\\.\\d+)\\)\\)");
+        Pattern pNull = Pattern.compile(mapRF.get(rf) + "\\s+(\\d+\\.\\.\\d+)");
+        Pattern pComplement = Pattern.compile(mapRF.get(rf) + "\\s+complement\\(((\\d+\\.\\.\\d+,)*\\d+\\.\\.\\d+)\\)");
+        Pattern pJoin = Pattern.compile(mapRF.get(rf) + "\\s+join\\(((\\d+\\.\\.\\d+,)+\\d+\\.\\.\\d+)\\)");
+        Pattern pCompJoin = Pattern.compile(mapRF.get(rf) + "\\s+complement\\(join\\(((\\d+\\.\\.\\d+,)+\\d+\\.\\.\\d+)\\)\\)");
+        
+        List<String> r;
+        String b;
         
         BufferedReader reader = new BufferedReader(new InputStreamReader(url.openStream()));
         String line = reader.readLine();
@@ -194,6 +212,9 @@ public class HtmlGenome
         {
             if(pCDS.matcher(line).find())
             {
+                //String[] ids;
+                
+            	r = new ArrayList<String>();
                 Matcher m = pGene.matcher(line);
                 String linesupp;
                 
@@ -219,28 +240,70 @@ public class HtmlGenome
 
                 while (mpNull.find())
                 {
-                    String s = verifGene("simple", mpNull.group(1), genome, genSize, genSizeString);
-                    if(s != null) res.add(s);
+                    String s = verifGene("simple", mpNull.group(1), genome, genSize, genSizeString, rf);
+                	b = mpNull.group(1);
+                	if(s != null)
+                    {
+                    	//ids = mpNull.group(1).split("\\.\\.");
+                    	r.add(s);
+                        r.add(b);
+                        r.add("simple");
+                        //System.out.println("simple");
+                    }
                 }
                 while (mpComplement.find())
                 {
-                    String s = verifGene("complement", mpComplement.group(1), genome, genSize, genSizeString);
-                    if(s != null) res.add(s);
+                    String s = verifGene("complement", mpComplement.group(1), genome, genSize, genSizeString, rf);
+                    b = "complement(" + mpComplement.group(1) + ")";
+                    if(s != null)
+                    {
+                    	//ids = mpComplement.group(1).split("\\.\\.");
+                    	r.add(s);
+                        r.add(b);
+                        r.add("complement");
+                        //System.out.println("complement");
+                    }
                 }
                 while (mpJoin.find())
                 {
-                    String s = verifGene("join", mpJoin.group(1), genome, genSize, genSizeString);
-                    if(s != null) res.add(s);
+                	//System.out.println("join1 : " + geneID);
+                    String s = verifGene("join", mpJoin.group(1), genome, genSize, genSizeString, rf);
+                    b = "join(" + mpJoin.group(1) + ")";
+                    if(s != null)
+                    {
+                    	//ids = mpJoin.group(1).split("\\.\\.");
+                    	r.add(s);
+                        r.add(b);
+                        r.add("join");
+                        //System.out.println("join");
+                    }
                 }   
                 while (mpCompJoin.find())
                 {
-                    String s = verifGene("joincomplement", mpCompJoin.group(1), genome, genSize, genSizeString);
-                    if(s != null) res.add(s);
+                    String s = verifGene("joincomplement", mpCompJoin.group(1), genome, genSize, genSizeString, rf);
+                    b = "complement(join(" + mpCompJoin.group(1) + "))";
+                    if(s != null)
+                    {
+                    	//ids = mpCompJoin.group(1).split("\\.\\.");
+                    	r.add(s);
+                        r.add(b);
+                        r.add("joincomplement");
+                        //System.out.println("joincomplement");
+                    }
                 }
+                
+                if(r.size() == 3)
+                	res.add(r);
             }
             line = reader.readLine();
         }
         reader.close();
+        
+        /*for(int i = 0; i < res.size(); i++)
+        {
+        	System.out.println(geneID + " : " + res.get(i).get(1));
+        	System.out.println(res.get(i).get(0) + "\n");
+        }*/
             
         return res;
     }
@@ -254,90 +317,143 @@ public class HtmlGenome
      * @param genSizeString
      * @return
      */
-    public static String verifGene(String type, String cds, ArrayList<String> genome, int genSize, int genSizeString)
+    public static String verifGene(String type, String cds, ArrayList<String> genome, int genSize, int genSizeString, String rf)
     {
     	String res = "";
 		String gene = "";
         String[] ids = cds.split("\\.\\.");
-        if(ids.length != 2)
+        
+        //if(type.equals("join") || type.equals("joincomplement"))
+        //	System.out.println(type + " " + cds + " : " +  ids.length);
+        
+        /*if(ids.length != 2)
         {
             return null;
-        }
-        int bInf = Integer.parseInt(ids[0]);
-        int bSup = Integer.parseInt(ids[1]);
+        }*/
+        //int bInf;
+        //int bSup;
     	
     	switch(type)
     	{
-	    	case "join":
-	    		int lastborne=0;
-	            String[] result = cds.split(",");
-	            for (int i=0; i<result.length; i++)
-	            {
-	            	ids = result[i].split("\\.\\.");
-	                if(ids.length != 2)
-	                {
-	                    System.out.println("genome.join : erreur nombre de borne aprs split = "+ids.length);
-	                    System.exit(1);
-	                }
-	                bInf = Integer.parseInt(ids[0]);
-	                bSup = Integer.parseInt(ids[1]);
-	                
-	                if(((0 < bInf) && (bInf <= bSup) && (bSup <= genSize)) && (bInf > lastborne))
-	                {
-	                    lastborne = bSup;
-	                    gene += getGeneSeqFromAdn(bInf-1, bSup, genome, genSizeString);
-	                }
-	                else
-	                {
-	                    return null;
-	                }
-	            }
-	            res = gene.toLowerCase();
-	    		break;
-	    	case "complement":
-	            if(ids.length != 2)
-	            {
-	                System.out.println("genome.complement : erreur nombre de borne apr�s split = "+ids.length);
-	                System.exit(1);
-	            }
-	            if((0 < bInf) && (bInf <= bSup) && (bSup <= genSize))
-	            {	                
-	                StringBuilder input1 = new StringBuilder(); 
-		            input1.append(getGeneSeqFromAdn(bInf-1, bSup, genome, genSizeString)); 
-		            input1 = input1.reverse(); 
-		            
-		            gene =  input1.toString();
-	            }
-	            else
-	            {
-	                System.out.println("genome.complement : bornes injuste"+ids.length);
-	                return null;
-	            }
-	            res = gene.toLowerCase();
 	    	case "simple":
-	            if(ids.length != 2)
-	            {
-	                System.exit(1);
-	            }
-	            if(((0 < bInf) && (bInf <= bSup) && (bSup <= genSize)))
-	            {
-	                gene = getGeneSeqFromAdn(bInf-1, bSup, genome, genSizeString);
-	            }
-	            else
-	            {
-	                System.out.println("Bornes rincees" + bInf + " " + bSup + " " + genSize);
-	                return null;
-	            }
+	    		if(!isValidBornes(ids, "join", genSize))
+	    			return null;
+	    		
+	    		gene = getGeneSeqFromAdn(Integer.parseInt(ids[0])-1, Integer.parseInt(ids[1]), genome, genSizeString);
+	            
 	            res = gene.toLowerCase();
+	            
 	    		break;
+	    		
+	    	case "join":
+
+	            String[] result = cds.split(",");
+	    		
+	    		if(rf.equals("Intron"))
+	    		{
+	    			int[] binfs = new int[result.length+1];
+	    			int[] bsups = new int[result.length+1];
+	    			
+	    			binfs[0] = 0;
+	    			 
+	    			for (int i = 0; i < result.length; i++)
+	    			{
+	                	ids = result[i].split("\\.\\.");
+	    				if(!isValidBornes(ids, "join", genSize))
+	                		return null;
+	    				
+	                	binfs[i] = Integer.parseInt(ids[0])-1;
+	                	bsups[i+1] = Integer.parseInt(ids[1]);
+	    			}
+	    			
+	    			for (int i = 1; i < result.length; i++)
+	    			{
+	    				gene += ";";
+                    	gene += getGeneSeqFromAdn(bsups[i], binfs[i], genome, genSizeString);
+	    			}
+	    		}
+	    		else
+	    		{
+		            for (int i = 0; i < result.length; i++)
+		            {
+		            	ids = result[i].split("\\.\\.");
+		                if(!isValidBornes(ids, "join", genSize))
+		                	return null;
+		                
+	                    gene += ";";
+	                    gene += getGeneSeqFromAdn(Integer.parseInt(ids[0])-1, Integer.parseInt(ids[1]), genome, genSizeString);
+		            }
+	    		}
+
+	            gene = gene.substring(1);
+	            res = gene.toLowerCase();
+	            
+	    		break;
+	    		
+	    	case "complement":
+	    		
+	    		if(!isValidBornes(ids, "complement", genSize))
+	    			return null;
+	    		
+                StringBuilder inputc = new StringBuilder(); 
+                inputc.append(getGeneSeqFromAdn(Integer.parseInt(ids[0])-1, Integer.parseInt(ids[1]), genome, genSizeString)); 
+                
+                inputc = inputc.reverse();
+	            res =  inputc.toString();
+	            
+	            res = res.replace('A', 'X');
+	            res = res.replace('T', 'A');
+	            res = res.replace('X', 'T');
+	            
+	            res = res.replace('C', 'Y');
+	            res = res.replace('G', 'C');
+	            res = res.replace('Y', 'G');
+	            
+	            break;
+	    		
 	    	case "joincomplement":
-	            StringBuilder input1 = new StringBuilder(); 
-	            input1.append(verifGene("join", cds, genome, genSize, genSizeString)); 
-	            input1 = input1.reverse(); 
-	            res =  input1.toString();
+	    		
+	            StringBuilder inputjc = new StringBuilder(); 
+	            inputjc.append(verifGene("join", cds, genome, genSize, genSizeString, rf)); 
+	            
+	            inputjc = inputjc.reverse(); 
+	            res =  inputjc.toString();
+	            
+	            res = res.replace('A', 'X');
+	            res = res.replace('T', 'A');
+	            res = res.replace('X', 'T');
+	            
+	            res = res.replace('C', 'Y');
+	            res = res.replace('G', 'C');
+	            res = res.replace('Y', 'G');
+	            
 	    		break;
     	}
     	return res;
+    }
+    
+    
+    /**
+     * 
+     */
+    public static boolean isValidBornes(String[] ids, String type, int genSize)
+    {
+    	if(ids.length != 2)
+        {
+            System.out.println("Genome " + type + " : erreur nombre de borne : " + ids.length);
+            System.exit(1);
+        }
+    	
+        int bInf = Integer.parseInt(ids[0]);
+        int bSup = Integer.parseInt(ids[1]);
+        
+        if(((0 < bInf) && (bInf <= bSup) && (bSup <= genSize)))
+        {
+        	return true;
+        }
+        
+        System.out.println("Genome " + type + " : bornes injuste"+ids.length);
+    	return false;
     }
     
     /**
@@ -371,7 +487,21 @@ public class HtmlGenome
             	res += genome.get(binfTab);
                 binfTab++;
             }
-            res += genome.get(binfTab).substring(0, (bsup) % maxSizeAdn);
+
+            /*
+            System.out.println("binf : " + binf);
+            System.out.println("bsup : " + bsup);
+            System.out.println("binfTab : " + binfTab);
+            System.out.println("bsubTab : " + bsubTab);
+            System.out.println("maxSizeAdn : " + maxSizeAdn);
+            System.out.println("(bsup) % maxSizeAdn : " + (bsup) % maxSizeAdn);
+            System.out.println("genome.size() : " + genome.size());
+            System.out.println("1 : " + genome.get(binfTab));
+            System.out.println("2 : " + genome.get(binfTab).substring(0, (bsup) % maxSizeAdn));
+            */
+            
+            if(binfTab < genome.size())
+            	res += genome.get(binfTab).substring(0, (bsup) % maxSizeAdn);
         }
         return res;
     }
