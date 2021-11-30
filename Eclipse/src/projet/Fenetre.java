@@ -219,15 +219,6 @@ public class Fenetre extends JFrame
 	    JButton start = new JButton(icon_start); 
 		 
 	    JButton stop  = new JButton(icon_pause);
- 
-         
-	     
-	    //start.setEnabled(true);
-	    
-	 
-	      
-	    //stop.setEnabled(false);
-	    
 	    
         checkboxPanel.add(start);
         checkboxPanel.add(stop);
@@ -285,7 +276,6 @@ public class Fenetre extends JFrame
 		
 		JPanel paneltete = new JPanel();
 		JPanel paneltete1 = new JPanel();
-		JPanel paneltete2 = new JPanel();
 		
 		
 		paneltete.setBackground(Color.blue);
@@ -302,12 +292,9 @@ public class Fenetre extends JFrame
         genome.setText("<html><h1>GENOME</h1></html>");
         genome.setHorizontalTextPosition(JLabel.CENTER);
         genome.setSize(100, 10);
-        //paneltete1.add(genome);
         
         
-        //paneltete2.add(new JLabel("Statistiques sur les genes de base GenBank " ,SwingConstants.RIGHT ) );
         paneltete.add(paneltete1);
-        //paneltete.add(paneltete2);
         
         // PANEL TETE 
         
@@ -436,13 +423,11 @@ public class Fenetre extends JFrame
 		cst.gridwidth = 1;
 		cst.gridx = 0;
 		cst.gridy = 1;
-		//middlePanel.add(start,cst);
 	    
 		cst.fill = GridBagConstraints.HORIZONTAL;
 		cst.gridwidth = 1;
 		cst.gridx = 0;
 		cst.gridy = 2;
-		//middlePanel.add(stop,cst);
 	   
 	 
 	    mainPanel.add(middlePanel);

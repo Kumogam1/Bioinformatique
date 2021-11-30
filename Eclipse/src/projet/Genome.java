@@ -44,13 +44,6 @@ public class Genome
         {
         	String g = this.geneList.get(i).get(0);
 
-        	/*
-        	System.out.println(this.geneList.get(i).get(2));
-        	System.out.println(this.geneList.get(i).get(1));
-        	System.out.println(this.geneList.get(i).get(0));
-        	System.out.println();
-        	 */
-        	
         	if(g != null 
         		&& !g.isEmpty() 
         		&& (this.geneList.get(i).get(2) != "simple" 

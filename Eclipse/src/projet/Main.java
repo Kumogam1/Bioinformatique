@@ -24,10 +24,6 @@ public class Main
 
 		f.log("Bienvenue dans GenBanks.\n ");
 		f.log("Selectionner une ou plusieurs r\u00e9gions fonctionnelles, puis cliquer sur Start pour\nd\u00e9marrer.\n ");
-
-		// String[] ids = new String[] {"Viruses", "Archaea", "Bacteria",
-		// "Mito_metazoa", "Phages", "Plasmids", "Viroids", "Samples", "dsDNA_Viruses",
-		// "Eukaryota"};
 		
 		ArrayList<String> done = new ArrayList<String>();
 		ArrayList<String> allreadyDone = new ArrayList<String>();
@@ -53,11 +49,6 @@ public class Main
 		String[] hierarchy;
 		String[] oldHierarchy = null;
 
-		//ArrayList<String> h = new ArrayList<String>(Arrays.asList("NC_000001", "NC_000010", "NC_000011", "NC_000012",
-		//		"NC_000013", "NC_000014", "NC_000015", "NC_000016", "NC_000017", "NC_000018", "NC_000019", "NC_000002",
-		//		"NC_000020", "NC_000021", "NC_000022", "NC_000003", "NC_000004", "NC_000005", "NC_000006", "NC_000007",
-		//		"NC_000008", "NC_000009", "NC_012920", "NC_000023", "NC_000024", "NC_011137", "NC_013993"));
-		
 		while (f.stopp1)
 		{
 			System.out.println("");
@@ -209,13 +200,9 @@ public class Main
 					if (f.stopp)
 						break;
         		}
-	
-				// A VERIFIER
 				f.startt = false;
 				f.log("Fin \n");
-
 			}
-
 		}
 		
 
