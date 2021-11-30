@@ -72,8 +72,6 @@ public class Main
 	
 						for (String rf : f.lrf)
 						{
-							f.doneBarre(1);
-							f.logProgress(nc);
 							String joinName = "Exon";
 		        			if(rf.equals("Intron")) { joinName = "Intron"; }
 							
