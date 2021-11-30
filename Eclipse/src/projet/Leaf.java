@@ -11,6 +11,4 @@ public class Leaf {
 	public String toString() {
 		return(name);
 	}
-
-
 }

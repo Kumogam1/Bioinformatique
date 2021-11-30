@@ -212,8 +212,6 @@ public class HtmlGenome
         {
             if(pCDS.matcher(line).find())
             {
-                //String[] ids;
-                
             	r = new ArrayList<String>();
                 Matcher m = pGene.matcher(line);
                 String linesupp;
@@ -244,11 +242,9 @@ public class HtmlGenome
                 	b = mpNull.group(1);
                 	if(s != null)
                     {
-                    	//ids = mpNull.group(1).split("\\.\\.");
                     	r.add(s);
                         r.add(b);
                         r.add("simple");
-                        //System.out.println("simple");
                     }
                 }
                 while (mpComplement.find())
@@ -257,25 +253,20 @@ public class HtmlGenome
                     b = "complement(" + mpComplement.group(1) + ")";
                     if(s != null)
                     {
-                    	//ids = mpComplement.group(1).split("\\.\\.");
                     	r.add(s);
                         r.add(b);
                         r.add("complement");
-                        //System.out.println("complement");
                     }
                 }
                 while (mpJoin.find())
                 {
-                	//System.out.println("join1 : " + geneID);
                     String s = verifGene("join", mpJoin.group(1), genome, genSize, genSizeString, rf);
                     b = "join(" + mpJoin.group(1) + ")";
                     if(s != null)
                     {
-                    	//ids = mpJoin.group(1).split("\\.\\.");
                     	r.add(s);
                         r.add(b);
                         r.add("join");
-                        //System.out.println("join");
                     }
                 }   
                 while (mpCompJoin.find())
@@ -284,11 +275,9 @@ public class HtmlGenome
                     b = "complement(join(" + mpCompJoin.group(1) + "))";
                     if(s != null)
                     {
-                    	//ids = mpCompJoin.group(1).split("\\.\\.");
                     	r.add(s);
                         r.add(b);
                         r.add("joincomplement");
-                        //System.out.println("joincomplement");
                     }
                 }
                 
@@ -299,12 +288,6 @@ public class HtmlGenome
         }
         reader.close();
         
-        /*for(int i = 0; i < res.size(); i++)
-        {
-        	System.out.println(geneID + " : " + res.get(i).get(1));
-        	System.out.println(res.get(i).get(0) + "\n");
-        }*/
-            
         return res;
     }
     
@@ -322,16 +305,6 @@ public class HtmlGenome
     	String res = "";
 		String gene = "";
         String[] ids = cds.split("\\.\\.");
-        
-        //if(type.equals("join") || type.equals("joincomplement"))
-        //	System.out.println(type + " " + cds + " : " +  ids.length);
-        
-        /*if(ids.length != 2)
-        {
-            return null;
-        }*/
-        //int bInf;
-        //int bSup;
     	
     	switch(type)
     	{
@@ -487,18 +460,6 @@ public class HtmlGenome
             	res += genome.get(binfTab);
                 binfTab++;
             }
-
-            /*
-            System.out.println("binf : " + binf);
-            System.out.println("bsup : " + bsup);
-            System.out.println("binfTab : " + binfTab);
-            System.out.println("bsubTab : " + bsubTab);
-            System.out.println("maxSizeAdn : " + maxSizeAdn);
-            System.out.println("(bsup) % maxSizeAdn : " + (bsup) % maxSizeAdn);
-            System.out.println("genome.size() : " + genome.size());
-            System.out.println("1 : " + genome.get(binfTab));
-            System.out.println("2 : " + genome.get(binfTab).substring(0, (bsup) % maxSizeAdn));
-            */
             
             if(binfTab < genome.size())
             	res += genome.get(binfTab).substring(0, (bsup) % maxSizeAdn);
