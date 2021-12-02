@@ -185,7 +185,7 @@ public class HtmlGenome
         Map<String, String> mapRF = new HashMap<String, String>();
         mapRF.put("CDS", "CDS");
         mapRF.put("Centromere", "centromere");
-        mapRF.put("Intron", "intron");
+        mapRF.put("Intron", "CDS");
         mapRF.put("mobile_element", "mobile_element");
         mapRF.put("ncRNA", "ncRNA");
         mapRF.put("rRNA", "rRNA");
@@ -235,28 +235,32 @@ public class HtmlGenome
                 Matcher mpComplement = pComplement.matcher(line);
                 Matcher mpJoin = pJoin.matcher(line);
                 Matcher mpCompJoin = pCompJoin.matcher(line);
-
-                while (mpNull.find())
+                
+                
+                if(!rf.equals("Intron"))
                 {
-                    String s = verifGene("simple", mpNull.group(1), genome, genSize, genSizeString, rf);
-                	b = mpNull.group(1);
-                	if(s != null)
-                    {
-                    	r.add(s);
-                        r.add(b);
-                        r.add("simple");
-                    }
-                }
-                while (mpComplement.find())
-                {
-                    String s = verifGene("complement", mpComplement.group(1), genome, genSize, genSizeString, rf);
-                    b = "complement(" + mpComplement.group(1) + ")";
-                    if(s != null)
-                    {
-                    	r.add(s);
-                        r.add(b);
-                        r.add("complement");
-                    }
+	                while (mpNull.find())
+	                {
+	                    String s = verifGene("simple", mpNull.group(1), genome, genSize, genSizeString, rf);
+	                	b = mpNull.group(1);
+	                	if(s != null)
+	                    {
+	                    	r.add(s);
+	                        r.add(b);
+	                        r.add("simple");
+	                    }
+	                }
+	                while (mpComplement.find())
+	                {
+	                    String s = verifGene("complement", mpComplement.group(1), genome, genSize, genSizeString, rf);
+	                    b = "complement(" + mpComplement.group(1) + ")";
+	                    if(s != null)
+	                    {
+	                    	r.add(s);
+	                        r.add(b);
+	                        r.add("complement");
+	                    }
+	                }
                 }
                 while (mpJoin.find())
                 {
@@ -272,6 +276,7 @@ public class HtmlGenome
                 while (mpCompJoin.find())
                 {
                     String s = verifGene("joincomplement", mpCompJoin.group(1), genome, genSize, genSizeString, rf);
+                    //System.out.println(s);
                     b = "complement(join(" + mpCompJoin.group(1) + "))";
                     if(s != null)
                     {
@@ -332,17 +337,30 @@ public class HtmlGenome
 	    			for (int i = 0; i < result.length; i++)
 	    			{
 	                	ids = result[i].split("\\.\\.");
-	    				if(!isValidBornes(ids, "join", genSize))
-	                		return null;
+	    				//if(!isValidBornes(ids, "join", genSize))
+	                	//	return null;
+
+	                	//System.out.println("HTMLGENOME -- borne inf " + i + " : " + ids[0]);
+	                	//System.out.println("HTMLGENOME -- borne sup " + i + " : " + ids[1]);
 	    				
 	                	binfs[i] = Integer.parseInt(ids[0])-1;
-	                	bsups[i+1] = Integer.parseInt(ids[1]);
+	                	bsups[i+1] = Integer.parseInt(ids[1])+1;
 	    			}
 	    			
 	    			for (int i = 1; i < result.length; i++)
 	    			{
+
+	                	//System.out.println("HTMLGENOME -- new borne inf " + i + " : " + bsups[i]);
+	                	//System.out.println("HTMLGENOME -- new borne sup " + i + " : " + binfs[i]);
+	                	
+	                	
+	                	if(!isValidIntronsBornes(bsups[i], binfs[i], "join", genSize))
+	                		return null;
+
+	                	//System.out.println("les bornes sont valides");
 	    				gene += ";";
                     	gene += getGeneSeqFromAdn(bsups[i], binfs[i], genome, genSizeString);
+	                	//System.out.println("HTMLGENOME -- gen ? " + i + " : " + gene);
 	    			}
 	    		}
 	    		else
@@ -357,9 +375,12 @@ public class HtmlGenome
 	                    gene += getGeneSeqFromAdn(Integer.parseInt(ids[0])-1, Integer.parseInt(ids[1]), genome, genSizeString);
 		            }
 	    		}
-
-	            gene = gene.substring(1);
+	    		
+	    		if(gene.length() > 0)
+	    			gene = gene.substring(1);
 	            res = gene.toLowerCase();
+	            
+	            //System.out.println("HTLMGENOME -- result : " + res);
 	            
 	    		break;
 	    		
@@ -386,8 +407,13 @@ public class HtmlGenome
 	    		
 	    	case "joincomplement":
 	    		
-	            StringBuilder inputjc = new StringBuilder(); 
-	            inputjc.append(verifGene("join", cds, genome, genSize, genSizeString, rf)); 
+	            StringBuilder inputjc = new StringBuilder();
+	            String vg = verifGene("join", cds, genome, genSize, genSizeString, rf);
+	            
+	            if(vg == null)
+	            	return null;
+	            
+	            inputjc.append(vg); 
 	            
 	            inputjc = inputjc.reverse(); 
 	            res =  inputjc.toString();
@@ -420,12 +446,23 @@ public class HtmlGenome
         int bInf = Integer.parseInt(ids[0]);
         int bSup = Integer.parseInt(ids[1]);
         
-        if(((0 < bInf) && (bInf <= bSup) && (bSup <= genSize)))
+        if(((0 < bInf) && (bInf < bSup) && (bSup <= genSize)))
         {
         	return true;
         }
         
         System.out.println("Genome " + type + " : bornes injuste"+ids.length);
+    	return false;
+    }
+    
+    public static boolean isValidIntronsBornes(int bInf, int bSup, String type, int genSize)
+    {
+        if(0 < bInf && bInf < bSup && bSup <= genSize)
+        {
+        	return true;
+        }
+        
+        System.out.println("Genome " + type + " - erreur sur les bornes : " + bInf + " " + bSup);
     	return false;
     }
     

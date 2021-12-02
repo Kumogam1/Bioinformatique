@@ -2,6 +2,7 @@ package projet;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class Genome
@@ -27,6 +28,7 @@ public class Genome
         this.genome = HtmlGenome.getGenome(id, this.geneSizeMax);
         this.geneOkList = new ArrayList<List<String>>();
         this.hierarchy = HtmlGenome.getHierarchy(id);
+        
         this.genomeType =  HtmlGenome.getGenomeType(id);
         
         String dseq = "ata,atc,atg,att,ctg,gtg,tta,ttg";
@@ -43,8 +45,13 @@ public class Genome
         for(int i = 0; i < this.geneList.size() ; i++)
         {
         	String g = this.geneList.get(i).get(0);
+        	
+        	
 
-        	if(g != null 
+        	//System.out.println("seq : " + g==null);
+        	//System.out.println("seq : " + g);
+
+        	if(g != null
         		&& !g.isEmpty() 
         		&& (this.geneList.get(i).get(2) != "simple" 
         			|| ((g.length() % 3 == 0)

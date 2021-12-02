@@ -46,8 +46,12 @@ public class Main
 		ArrayList<String> d = new ArrayList<String>();
 		ArrayList<String> dS = new ArrayList<String>();
 
-		String[] hierarchy;
-		String[] oldHierarchy = null;
+		//String[] oldHierarchy = null;
+		
+		String sequence;
+		String bornes;
+		String type;
+		String[] seqs;
 
 		while (f.stopp1)
 		{
@@ -82,99 +86,113 @@ public class Main
 								continue;
 							}
 							
+							//System.out.println("on cherche le genome");
+							
+							//if (!(Arrays.equals(HtmlGenome.getHierarchy(nc), oldHierarchy)))
+							//{	
 							Genome g = getGenome(nc, rf);
 							if (g == null) {
 								f.log("ERROR : " + nc);
 								continue;
 							}
-							hierarchy = g.getHierarchy();
-	
-							if (!(Arrays.equals(hierarchy, oldHierarchy)))
-							{				    			
-								d.addAll(dS);
-								dS = new ArrayList<String>();
+							
+							//System.out.println("size : " + g.getGenomeOkList().size());
+					    			
+							d.addAll(dS);
+							dS = new ArrayList<String>();
+							
+							//System.out.println("hierarchie");
+							
+							if (g.getGenomeOkList().size() != 0)
+								f.addNode(g.getHierarchy());
+							
+							//System.out.println("node ajoutée");
+							
+							//if (oldHierarchy != null)
+							//{
+							String str = "";
+							//System.out.println("on rentre dans le foreach sequence : " + g.getGenomeOkList().size());
+							//int count = 0;
+							for (List<String> gok : g.getGenomeOkList())
+							{
+								//System.out.println(count);
+								//count++;
+
+								sequence = gok.get(0);
+								bornes = gok.get(1);
+								type = gok.get(2);
 								
-								if (g.getGenomeOkList().size() != 0)
-									f.addNode(hierarchy);
+								//System.out.println("premier gok : " + type + " " + bornes + " " + sequence);
 								
-								if (oldHierarchy != null)
+								if (type.equals("simple") || type.equals("complement"))
 								{
-									String str = "";
-									for (List<String> gok : g.getGenomeOkList())
-									{
-										if (gok.get(2).equals("simple") || gok.get(2).equals("complement"))
-										{
-											str += rf + " "
-												+ hierarchy[hierarchy.length - 1] + " "
-												+ nc + " "
-												+ gok.get(1) + "\n"
-												+ gok.get(0).toUpperCase();
-										}
-										else
-										{
-											str += rf + " "
-												+ hierarchy[hierarchy.length - 1] + " "
-												+ nc + " "
-												+ gok.get(1) + "\n"
-												+ gok.get(0).replace(";", "").toUpperCase() + "\n";
-											
-											String type = gok.get(1);
-											
-											if (gok.get(2).equals("joincomplement"))
-												type = gok.get(1).substring(11, gok.get(1).length()-1);
-											
-											String[] seqs = gok.get(0).split(";");
-											for (int num_seq = 0; num_seq < seqs.length; num_seq++)
-											{
-												str += rf + " "
-													+ hierarchy[hierarchy.length - 1] + " "
-													+ nc + " "
-													+ type + " "
-													+ joinName + " "
-													+ (num_seq + 1) + "\n"
-													+ seqs[num_seq].toUpperCase();
-												
-												if (num_seq != seqs.length - 1)
-													str += "\n";
-											}
-										}
-										str += "\n";
-									}
-									
-									if(g.getGenomeOkList().size() != 0)
-									{
-										
-										String[] oldH2 = Arrays.copyOfRange(hierarchy, 0, hierarchy.length - 1);
-										
-										String fileName = rf + "_" + hierarchy[hierarchy.length - 1];
-										
-										for(int i = 0; i < oldH2.length; i++)
-											for(char c : replaceChars)
-												oldH2[i] = oldH2[i].replace(c, '_');
-										
-										for(char c : replaceChars)
-											fileName = fileName.replace(c, '_');
-	
-										String fileSerialize = "./Results/"
-																	+ String.join("/", oldH2) + "/"
-																	+ fileName + "_" 
-																	+ nc + ".txt";
-	
-										File tmp = new File(fileSerialize);
-										tmp.getParentFile().setWritable(true);
-										tmp.getParentFile().mkdirs();
-	
-										BufferedWriter bufres = new BufferedWriter(new FileWriter(fileSerialize));
-										bufres.write(str);
-										bufres.close();
-									}
-									
+								str += rf + " "
+									+ g.getHierarchy()[g.getHierarchy().length - 1] + " "
+									+ nc + " "
+									+ bornes + "\n"
+									+ sequence.toUpperCase() + "\n";
 								}
-								
-								oldHierarchy = hierarchy;
-								if (g.getGenomeOkList().size() != 0)
-									f.log("Nouveau gene : " + hierarchy[5]);
+								else
+								{									
+									if (type.equals("joincomplement"))
+										bornes = bornes.substring(11, gok.get(1).length()-1);
+									
+									seqs = sequence.split(";");
+									for (int num_seq = 0; num_seq < seqs.length; num_seq++)
+									{
+										str += rf + " "
+											+ g.getHierarchy()[g.getHierarchy().length - 1] + " "
+											+ nc + " "
+											+ bornes + " "
+											+ joinName + " "
+											+ (num_seq + 1) + "\n"
+											+ seqs[num_seq].toUpperCase();
+										
+										if (num_seq != seqs.length - 1)
+											str += "\n";
+									}
+								}
+								str += "\n";
 							}
+							
+							//System.out.println("fin du foreach de taille : " + g.getGenomeOkList().size());
+							
+							if(g.getGenomeOkList().size() != 0)
+							{
+								
+								String[] oldH2 = Arrays.copyOfRange(g.getHierarchy(), 0, g.getHierarchy().length - 1);
+								
+								String fileName = rf + "_" + g.getHierarchy()[g.getHierarchy().length - 1];
+								
+								for(int i = 0; i < oldH2.length; i++)
+									for(char c : replaceChars)
+										oldH2[i] = oldH2[i].replace(c, '_');
+								
+								for(char c : replaceChars)
+									fileName = fileName.replace(c, '_');
+
+								String fileSerialize = "./Results/"
+															+ String.join("/", oldH2) + "/"
+															+ fileName + "_" 
+															+ nc + ".txt";
+
+								File tmp = new File(fileSerialize);
+								tmp.getParentFile().setWritable(true);
+								tmp.getParentFile().mkdirs();
+
+								BufferedWriter bufres = new BufferedWriter(new FileWriter(fileSerialize));
+								bufres.write(str);
+								bufres.close();
+								
+								f.log("Nouveau gene : " + g.getHierarchy()[5]);
+							}
+								
+							//}
+							
+							//oldHierarchy = g.getHierarchy();
+							//if (g.getGenomeOkList().size() != 0)
+							//	f.log("Nouveau gene : " + g.getHierarchy()[5]);
+							//}
 							
 							doneInSpecie.add(ncRegion);
 							
