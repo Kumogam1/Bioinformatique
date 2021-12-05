@@ -34,19 +34,10 @@ public class Main
 		FileWriter doneFileWriter = null;
 		String donePath = "./done.txt";
 		
-		try {
-			File doneFile = new File(donePath);
-			doneFile.createNewFile();
-			allreadyDone = new ArrayList<String>(Arrays.asList(new String(Files.readAllBytes(Paths.get(donePath))).split("\n")));
-			doneFileWriter =  new FileWriter(donePath, true);
-		} catch (IOException e1) {
-			e1.printStackTrace();
-		}
+		
 		
 		ArrayList<String> d = new ArrayList<String>();
 		ArrayList<String> dS = new ArrayList<String>();
-
-		//String[] oldHierarchy = null;
 		
 		String sequence;
 		String bornes;
@@ -55,9 +46,18 @@ public class Main
 
 		while (f.stopp1)
 		{
-			System.out.println("");
+			System.out.print("");
 			if (f.startt)
 			{
+				try {
+					File doneFile = new File(donePath);
+					doneFile.createNewFile();
+					allreadyDone = new ArrayList<String>(Arrays.asList(new String(Files.readAllBytes(Paths.get(donePath))).split("\n")));
+					doneFileWriter =  new FileWriter(donePath, true);
+				} catch (IOException e1) {
+					e1.printStackTrace();
+				}
+				
 				Hashtable<String, ArrayList<String>> ncs = getNcs(f.ldm);
 				int nbNcs = 0;
 
@@ -86,44 +86,28 @@ public class Main
 								continue;
 							}
 							
-							//System.out.println("on cherche le genome");
-							
-							//if (!(Arrays.equals(HtmlGenome.getHierarchy(nc), oldHierarchy)))
-							//{	
+							//on cherche le genome
 							Genome g = getGenome(nc, rf);
 							if (g == null) {
 								f.log("ERROR : " + nc);
 								continue;
 							}
 							
-							//System.out.println("size : " + g.getGenomeOkList().size());
-					    			
+
 							d.addAll(dS);
 							dS = new ArrayList<String>();
 							
-							//System.out.println("hierarchie");
+							//ajout dans la hierarchie
 							
 							if (g.getGenomeOkList().size() != 0)
 								f.addNode(g.getHierarchy());
-							
-							//System.out.println("node ajoutée");
-							
-							//if (oldHierarchy != null)
-							//{
+
 							String str = "";
-							//System.out.println("on rentre dans le foreach sequence : " + g.getGenomeOkList().size());
-							int size = g.getGenomeOkList().size();
-							int count = 0;
 							for (List<String> gok : g.getGenomeOkList())
 							{
-								System.out.println(count + "/" + size);
-								count++;
-
 								sequence = gok.get(0);
 								bornes = gok.get(1);
 								type = gok.get(2);
-								
-								//System.out.println("premier gok : " + type + " " + bornes + " " + sequence);
 								
 								if (type.equals("simple") || type.equals("complement"))
 								{
@@ -155,9 +139,7 @@ public class Main
 								}
 								str += "\n";
 							}
-							
-							//System.out.println("fin du foreach de taille : " + g.getGenomeOkList().size());
-							
+
 							if(g.getGenomeOkList().size() != 0)
 							{
 								
@@ -187,13 +169,7 @@ public class Main
 								
 								f.log("Nouveau gene : " + g.getHierarchy()[5]);
 							}
-								
-							//}
-							
-							//oldHierarchy = g.getHierarchy();
-							//if (g.getGenomeOkList().size() != 0)
-							//	f.log("Nouveau gene : " + g.getHierarchy()[5]);
-							//}
+
 							
 							doneInSpecie.add(ncRegion);
 							
@@ -208,28 +184,40 @@ public class Main
 							dS.add(nc);
 	
 							// on termine le gene puis stop
-							if (f.stopp)
+							if (f.stopp) {
+								System.out.println("ok");
+								try {
+									doneFileWriter.close();
+								} catch (IOException e) {
+									e.printStackTrace();
+								}
 								break;
+							}
 						}
-						if (f.stopp)
+						if (f.stopp) {
+							System.out.println("ok");
+							try {
+								doneFileWriter.close();
+							} catch (IOException e) {
+								e.printStackTrace();
+							}
 							break;
+						}
 					}
-					if (f.stopp)
+					if (f.stopp) {
+						System.out.println("ok");
+						try {
+							doneFileWriter.close();
+						} catch (IOException e) {
+							e.printStackTrace();
+						}
 						break;
+					}
         		}
 				f.startt = false;
 				f.log("Fin \n");
 			}
 		}
-		
-
-		
-		try {
-			doneFileWriter.close();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-
 	}
 
 	static Genome getGenome(String nc, String rf) {

@@ -276,7 +276,6 @@ public class HtmlGenome
                 while (mpCompJoin.find())
                 {
                     String s = verifGene("joincomplement", mpCompJoin.group(1), genome, genSize, genSizeString, rf);
-                    //System.out.println(s);
                     b = "complement(join(" + mpCompJoin.group(1) + "))";
                     if(s != null)
                     {
