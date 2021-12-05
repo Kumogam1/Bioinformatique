@@ -45,11 +45,6 @@ public class Genome
         for(int i = 0; i < this.geneList.size() ; i++)
         {
         	String g = this.geneList.get(i).get(0);
-        	
-        	
-
-        	//System.out.println("seq : " + g==null);
-        	//System.out.println("seq : " + g);
 
         	if(g != null
         		&& !g.isEmpty() 
