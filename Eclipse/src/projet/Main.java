@@ -112,11 +112,12 @@ public class Main
 							//{
 							String str = "";
 							//System.out.println("on rentre dans le foreach sequence : " + g.getGenomeOkList().size());
-							//int count = 0;
+							int size = g.getGenomeOkList().size();
+							int count = 0;
 							for (List<String> gok : g.getGenomeOkList())
 							{
-								//System.out.println(count);
-								//count++;
+								System.out.println(count + "/" + size);
+								count++;
 
 								sequence = gok.get(0);
 								bornes = gok.get(1);

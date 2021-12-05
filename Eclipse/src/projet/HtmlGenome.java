@@ -344,7 +344,7 @@ public class HtmlGenome
 	                	//System.out.println("HTMLGENOME -- borne sup " + i + " : " + ids[1]);
 	    				
 	                	binfs[i] = Integer.parseInt(ids[0])-1;
-	                	bsups[i+1] = Integer.parseInt(ids[1])+1;
+	                	bsups[i+1] = Integer.parseInt(ids[1]);
 	    			}
 	    			
 	    			for (int i = 1; i < result.length; i++)
