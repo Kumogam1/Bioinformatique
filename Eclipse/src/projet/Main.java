@@ -185,7 +185,6 @@ public class Main
 	
 							// on termine le gene puis stop
 							if (f.stopp) {
-								System.out.println("ok");
 								try {
 									doneFileWriter.close();
 								} catch (IOException e) {
@@ -195,7 +194,6 @@ public class Main
 							}
 						}
 						if (f.stopp) {
-							System.out.println("ok");
 							try {
 								doneFileWriter.close();
 							} catch (IOException e) {
@@ -205,7 +203,6 @@ public class Main
 						}
 					}
 					if (f.stopp) {
-						System.out.println("ok");
 						try {
 							doneFileWriter.close();
 						} catch (IOException e) {
@@ -217,6 +214,12 @@ public class Main
 				f.startt = false;
 				f.log("Fin \n");
 			}
+		
+		}
+		try {
+			doneFileWriter.close();
+		} catch (IOException e) {
+			e.printStackTrace();
 		}
 	}
 
